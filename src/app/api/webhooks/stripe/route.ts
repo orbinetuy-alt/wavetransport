@@ -39,7 +39,7 @@ export async function POST(req: NextRequest) {
     create: {
       stripeId: event.id,
       type: event.type,
-      payload: event as unknown as Record<string, unknown>,
+      payload: JSON.parse(JSON.stringify(event)),
       processed: false,
     },
     update: {},
