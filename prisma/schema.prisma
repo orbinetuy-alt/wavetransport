@@ -1,0 +1,227 @@
+// ============================================================
+// WaveTransport — Prisma Schema
+// ============================================================
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ─────────────────────────────────────────────
+// ENUMS
+// ─────────────────────────────────────────────
+
+enum UserRole {
+  ADMIN
+  DRIVER
+  CLIENT
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+  NO_SHOW
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  REFUNDED
+  PARTIALLY_REFUNDED
+  DISPUTED
+  FAILED
+}
+
+enum SettlementStatus {
+  PENDING      // viaje completado, saldo calculado pero no transferido
+  AVAILABLE    // fondos disponibles en Stripe para transferir
+  TRANSFERRED  // transferido a cuenta Connect del chofer
+  PAID_OUT     // chofer recibió el dinero en su banco
+  RECONCILED   // conciliado contablemente
+  ON_HOLD      // retenido por disputa/refund
+}
+
+enum PayoutFrequency {
+  WEEKLY
+  BIWEEKLY
+  MONTHLY
+}
+
+// ─────────────────────────────────────────────
+// DRIVER (Chofer)
+// ─────────────────────────────────────────────
+
+model Driver {
+  id                    String           @id @default(cuid())
+  clerkUserId           String           @unique
+  email                 String           @unique
+  name                  String
+  phone                 String?
+  licenseNumber         String?
+
+  // Stripe Connect
+  stripeAccountId       String?          @unique  // acct_xxx (Express)
+  stripeOnboardingDone  Boolean          @default(false)
+  stripePayoutsEnabled  Boolean          @default(false)
+  stripeChargesEnabled  Boolean          @default(false)
+
+  // Reglas de comisión
+  commissionPercent     Decimal          @db.Decimal(5, 2)  // ej: 75.00 → chofer recibe 75%
+  payoutFrequency       PayoutFrequency  @default(WEEKLY)
+
+  isActive              Boolean          @default(true)
+  createdAt             DateTime         @default(now())
+  updatedAt             DateTime         @updatedAt
+
+  bookings              Booking[]
+  settlements           Settlement[]
+  payouts               Payout[]
+
+  @@map("drivers")
+}
+
+// ─────────────────────────────────────────────
+// SERVICE (Tipo de viaje)
+// ─────────────────────────────────────────────
+
+model Service {
+  id          String    @id @default(cuid())
+  name        String
+  description String?
+  basePrice   Decimal   @db.Decimal(10, 2)  // precio base en EUR
+  currency    String    @default("eur")
+  isActive    Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  bookings    Booking[]
+
+  @@map("services")
+}
+
+// ─────────────────────────────────────────────
+// BOOKING (Reserva)
+// ─────────────────────────────────────────────
+
+model Booking {
+  id                      String         @id @default(cuid())
+
+  // Cliente (Clerk user o guest)
+  clientClerkUserId       String?
+  clientName              String
+  clientEmail             String
+  clientPhone             String?
+
+  // Servicio y chofer
+  serviceId               String
+  service                 Service        @relation(fields: [serviceId], references: [id])
+  driverId                String?
+  driver                  Driver?        @relation(fields: [driverId], references: [id])
+
+  // Detalles del viaje
+  pickupAddress           String
+  dropoffAddress          String
+  pickupDatetime          DateTime
+  passengers              Int            @default(1)
+  notes                   String?
+
+  // Financiero (en centavos EUR para evitar errores de float)
+  grossAmountCents        Int            // lo que paga el cliente
+  platformFeeCents        Int            // comisión empresa
+  driverAmountCents       Int            // ganancia del chofer
+  stripeFeeCents          Int            @default(0)
+  netAmountCents          Int            // neto empresa después de Stripe fee
+
+  // Estados
+  status                  BookingStatus  @default(PENDING)
+  paymentStatus           PaymentStatus  @default(PENDING)
+
+  // Stripe
+  stripePaymentIntentId   String?        @unique
+  stripeCheckoutSessionId String?        @unique
+
+  createdAt               DateTime       @default(now())
+  updatedAt               DateTime       @updatedAt
+
+  settlement              Settlement?
+
+  @@map("bookings")
+}
+
+// ─────────────────────────────────────────────
+// SETTLEMENT (Liquidación por viaje)
+// ─────────────────────────────────────────────
+
+model Settlement {
+  id                    String           @id @default(cuid())
+
+  bookingId             String           @unique
+  booking               Booking          @relation(fields: [bookingId], references: [id])
+  driverId              String
+  driver                Driver           @relation(fields: [driverId], references: [id])
+
+  // Mirror de los montos del booking para trazabilidad inmutable
+  grossAmountCents      Int
+  platformFeeCents      Int
+  driverAmountCents     Int
+  stripeFeeCents        Int
+
+  status                SettlementStatus @default(PENDING)
+
+  stripeTransferId      String?          @unique
+
+  payoutId              String?
+  payout                Payout?          @relation(fields: [payoutId], references: [id])
+
+  createdAt             DateTime         @default(now())
+  updatedAt             DateTime         @updatedAt
+
+  @@map("settlements")
+}
+
+// ─────────────────────────────────────────────
+// PAYOUT (Corte de liquidación periódico)
+// ─────────────────────────────────────────────
+
+model Payout {
+  id                   String           @id @default(cuid())
+
+  driverId             String
+  driver               Driver           @relation(fields: [driverId], references: [id])
+
+  periodStart          DateTime
+  periodEnd            DateTime
+  totalAmountCents     Int
+  status               SettlementStatus @default(PENDING)
+
+  stripePayoutId       String?          @unique
+
+  createdAt            DateTime         @default(now())
+  updatedAt            DateTime         @updatedAt
+
+  settlements          Settlement[]
+
+  @@map("payouts")
+}
+
+// ─────────────────────────────────────────────
+// WEBHOOK EVENT LOG (Auditoría Stripe)
+// ─────────────────────────────────────────────
+
+model StripeWebhookEvent {
+  id          String   @id @default(cuid())
+  stripeId    String   @unique  // evt_xxx
+  type        String
+  processed   Boolean  @default(false)
+  payload     Json
+  error       String?
+  createdAt   DateTime @default(now())
+
+  @@map("stripe_webhook_events")
+}

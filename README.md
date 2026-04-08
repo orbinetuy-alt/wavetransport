@@ -1,4 +1,119 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# WaveTransport
+
+Plataforma de gestión y liquidación de viajes con Stripe Connect.
+
+## Stack
+- **Next.js 14** (App Router)
+- **PostgreSQL** (Neon)
+- **Prisma 7** (ORM)
+- **Clerk** (autenticación + roles)
+- **Stripe Connect Express** (pagos + liquidaciones)
+- **Vercel** (deploy)
+
+---
+
+## Setup local
+
+### 1. Instalar dependencias
+```bash
+npm install
+```
+
+### 2. Variables de entorno
+```bash
+cp .env.example .env.local
+```
+Completar con las claves reales (ver `.env.example`).
+
+### 3. Base de datos (Neon)
+1. Crear proyecto en [neon.tech](https://neon.tech)
+2. Copiar la connection string al `.env.local` como `DATABASE_URL`
+3. Correr migrations:
+```bash
+npx prisma migrate dev --name init
+```
+
+### 4. Clerk
+1. Crear app en [dashboard.clerk.com](https://dashboard.clerk.com)
+2. Copiar claves al `.env.local`
+3. En Clerk Dashboard → **Sessions** → **Customize session token**:
+   - Agregar claim: `{ "metadata": "{{user.public_metadata}}" }`
+   - Permite leer el `role` del usuario en el JWT
+
+### 5. Stripe Connect
+1. Activar **Connect** en [dashboard.stripe.com](https://stripe.com)
+2. Copiar claves al `.env.local`
+3. Webhooks locales:
+```bash
+stripe listen --forward-to localhost:3000/api/webhooks/stripe
+```
+Copiar el `STRIPE_WEBHOOK_SECRET` generado al `.env.local`.
+
+### 6. Correr el proyecto
+```bash
+npm run dev
+```
+
+---
+
+## Webhooks de Stripe configurados
+
+| Evento | Acción |
+|---|---|
+| `checkout.session.completed` | Marca booking PAGADO + CONFIRMADO |
+| `payment_intent.succeeded` | Crea Settlement con montos reales |
+| `charge.refunded` | Pone settlement en ON_HOLD |
+| `charge.dispute.created` | Bloquea liquidación para auditoría |
+| `transfer.created` | Marca settlement como TRANSFERRED |
+| `payout.paid` | Cierra el ciclo: chofer cobró en su banco |
+| `account.updated` | Actualiza estado de onboarding Connect del chofer |
+
+---
+
+## Roles
+
+| Rol | Descripción |
+|---|---|
+| `ADMIN` | Acceso total: reservas, choferes, liquidaciones, reportes |
+| `DRIVER` | Panel propio: viajes, ganancias, estado de pagos |
+| `CLIENT` | Reserva y pago de viajes online |
+
+Los roles se asignan en `publicMetadata` de Clerk:
+```json
+{ "role": "ADMIN" }
+```
+
+---
+
+## Flujo de dinero
+
+```
+Cliente paga → Stripe Checkout
+     ↓
+checkout.session.completed → Booking CONFIRMED
+     ↓
+payment_intent.succeeded → Settlement creado (AVAILABLE)
+     ↓
+Corte semanal (cron job) → Transfer al chofer (Connect)
+     ↓
+transfer.created → Settlement TRANSFERRED
+     ↓
+payout.paid → Settlement PAID_OUT
+```
+
+---
+
+## Cálculo de liquidación
+
+```
+Gross         = precio del viaje (lo que paga el cliente)
+Driver amount = Gross × (commissionPercent / 100)
+Platform fee  = Gross − Driver amount
+Stripe fee    = fee real de Stripe (actualizado post-cobro)
+Net platform  = Platform fee − Stripe fee
+```
+
+Cada chofer tiene su propio `commissionPercent` negociado individualmente.
 
 ## Getting Started
 
