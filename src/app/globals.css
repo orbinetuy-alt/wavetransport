@@ -1,26 +1,75 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* ─────────────────────────────────────────────
+   Wave Transports — Design System
+   Paleta: Dark Navy + Teal Brand
+───────────────────────────────────────────── */
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  /* Brand colors (extraídos del logo) */
+  --color-brand-50:  #e6f4fa;
+  --color-brand-100: #b3ddf0;
+  --color-brand-200: #80c6e6;
+  --color-brand-300: #4dafdc;
+  --color-brand-400: #2698d2;
+  --color-brand-500: #0e81b8;  /* teal principal */
+  --color-brand-600: #0b6a97;
+  --color-brand-700: #085476;
+  --color-brand-800: #053d55;
+  --color-brand-900: #022634;
+
+  /* Superficie oscura */
+  --color-surface-base:   #080d14;  /* fondo principal */
+  --color-surface-card:   #0d1520;  /* cards */
+  --color-surface-raised: #111e2e;  /* hover/elevated */
+  --color-surface-border: #1b2d42;  /* bordes */
+
+  /* Texto */
+  --color-text-primary:   #f0f6fc;
+  --color-text-secondary: #7a99b8;
+  --color-text-muted:     #3d5a70;
+
+  /* Semánticos */
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-danger:  #ef4444;
+  --color-info:    #3b82f6;
+
+  /* Tipografía */
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ── Reset base ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: dark;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-surface-base);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
+
+/* ── Scrollbar personalizado ── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-surface-base);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-surface-border);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-muted);
+}
+
