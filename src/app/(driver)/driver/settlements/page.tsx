@@ -1,6 +1,7 @@
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
+import { getOrCreateDriver } from "@/lib/driver";
 import { DriverHeader } from "@/components/driver/DriverHeader";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 import { CreditCard, ArrowDownToLine } from "lucide-react";
@@ -15,7 +16,7 @@ export default async function DriverSettlementsPage() {
   const { userId } = await auth();
   if (!userId) redirect("/sign-in");
 
-  const driver = await prisma.driver.findUnique({ where: { clerkUserId: userId } });
+  const driver = await getOrCreateDriver(userId);
   if (!driver) redirect("/unauthorized");
 
   const [settlements, payouts] = await Promise.all([

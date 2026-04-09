@@ -1,6 +1,7 @@
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
+import { getOrCreateDriver } from "@/lib/driver";
 import { DriverHeader } from "@/components/driver/DriverHeader";
 import { StripeOnboardingButton } from "@/components/driver/StripeOnboardingButton";
 import { UserButton } from "@clerk/nextjs";
@@ -10,7 +11,7 @@ export default async function DriverSettingsPage() {
   const { userId } = await auth();
   if (!userId) redirect("/sign-in");
 
-  const driver = await prisma.driver.findUnique({ where: { clerkUserId: userId } });
+  const driver = await getOrCreateDriver(userId);
   if (!driver) redirect("/unauthorized");
 
   const stripeOk = driver.stripeOnboardingDone && driver.stripePayoutsEnabled;

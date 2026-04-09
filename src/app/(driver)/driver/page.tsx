@@ -1,6 +1,7 @@
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
+import { getOrCreateDriver } from "@/lib/driver";
 import { DriverHeader } from "@/components/driver/DriverHeader";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 import { TrendingUp, Car, Clock, CheckCircle } from "lucide-react";
@@ -12,9 +13,7 @@ function formatEuros(cents: number) {
 }
 
 async function getDriverData(clerkUserId: string) {
-  const driver = await prisma.driver.findUnique({
-    where: { clerkUserId },
-  });
+  const driver = await getOrCreateDriver(clerkUserId);
   if (!driver) return null;
 
   const now = new Date();

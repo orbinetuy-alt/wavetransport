@@ -1,15 +1,20 @@
-import { auth } from "@clerk/nextjs/server";
+import { auth, currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import type { UserRole } from "@/types";
 
 /**
- * Obtiene el rol del usuario desde Clerk publicMetadata.
- * Clerk publicMetadata: { role: "ADMIN" | "DRIVER" | "CLIENT" }
+ * Obtiene el rol del usuario leyendo directamente publicMetadata del backend de Clerk.
+ * No depende del session token customizado.
  */
 export async function getCurrentUserRole(): Promise<UserRole | null> {
-  const { userId, sessionClaims } = await auth();
+  const { userId } = await auth();
   if (!userId) return null;
-  return (sessionClaims?.metadata as { role?: UserRole })?.role ?? "CLIENT";
+
+  // currentUser() llama al backend de Clerk — siempre tiene publicMetadata actualizado
+  const user = await currentUser();
+  if (!user) return null;
+
+  return (user.publicMetadata as { role?: UserRole })?.role ?? "CLIENT";
 }
 
 /**
