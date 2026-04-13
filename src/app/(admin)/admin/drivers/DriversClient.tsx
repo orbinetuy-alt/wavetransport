@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Pencil, ToggleLeft, ToggleRight, Loader2, CheckCircle, XCircle, AlertCircle } from "lucide-react";
+import { Pencil, ToggleLeft, ToggleRight, Loader2, CheckCircle, XCircle, AlertCircle, Trash2 } from "lucide-react";
 import { DriverEditModal } from "@/components/admin/DriverEditModal";
 
 interface Driver {
@@ -34,6 +34,27 @@ export function DriversClient({ drivers }: DriversClientProps) {
   const router = useRouter();
   const [editingDriver, setEditingDriver] = useState<Driver | null>(null);
   const [togglingId, setTogglingId] = useState<string | null>(null);
+  const [deletingId, setDeletingId] = useState<string | null>(null);
+
+  async function handleDelete(driver: Driver) {
+    if (driver._count.bookings > 0) {
+      alert(`No se puede eliminar: ${driver.name} tiene ${driver._count.bookings} reserva(s) asociada(s).`);
+      return;
+    }
+    if (!confirm(`¿Eliminar el chofer "${driver.name}"? Esta acción no se puede deshacer.`)) return;
+    setDeletingId(driver.id);
+    try {
+      const res = await fetch(`/api/admin/drivers/${driver.id}`, { method: "DELETE" });
+      if (!res.ok) {
+        const data = await res.json();
+        alert(data.error ?? "Error al eliminar");
+        return;
+      }
+      router.refresh();
+    } finally {
+      setDeletingId(null);
+    }
+  }
 
   async function toggleActive(driver: Driver) {
     setTogglingId(driver.id);
@@ -197,6 +218,18 @@ export function DriversClient({ drivers }: DriversClientProps) {
                           <ToggleRight size={14} />
                         ) : (
                           <ToggleLeft size={14} />
+                        )}
+                      </button>
+                      <button
+                        onClick={() => handleDelete(driver)}
+                        disabled={deletingId === driver.id || driver._count.bookings > 0}
+                        className="p-1.5 rounded-lg transition-colors hover:bg-red-500/10 disabled:opacity-30 disabled:cursor-not-allowed"
+                        style={{ color: "var(--color-danger)" }}
+                        title={driver._count.bookings > 0 ? "Tiene reservas, no se puede eliminar" : "Eliminar chofer"}>
+                        {deletingId === driver.id ? (
+                          <Loader2 size={14} className="animate-spin" />
+                        ) : (
+                          <Trash2 size={14} />
                         )}
                       </button>
                     </div>

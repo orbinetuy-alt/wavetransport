@@ -32,3 +32,22 @@ export async function PATCH(
 
   return NextResponse.json(driver);
 }
+
+export async function DELETE(
+  _req: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  await requireRole("ADMIN");
+  const { id } = await params;
+
+  const bookingCount = await prisma.booking.count({ where: { driverId: id } });
+  if (bookingCount > 0) {
+    return NextResponse.json(
+      { error: "No se puede eliminar un chofer con reservas asociadas." },
+      { status: 422 }
+    );
+  }
+
+  await prisma.driver.delete({ where: { id } });
+  return NextResponse.json({ ok: true });
+}
