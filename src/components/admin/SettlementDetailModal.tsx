@@ -170,7 +170,7 @@ export function SettlementDetailModal({ settlement: initial, onClose }: Settleme
                 Desglose financiero
               </p>
             </div>
-            <div className="divide-y" style={{ divideColor: "var(--color-surface-border)" }}>
+            <div className="divide-y divide-(--color-surface-border)">
               {[
                 { label: "Total cobrado al cliente", value: settlement.grossAmountCents, highlight: false },
                 { label: "Comisión plataforma", value: settlement.platformFeeCents, highlight: false },
