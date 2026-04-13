@@ -1,13 +1,15 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { Search } from "lucide-react";
+import { Search, Plus } from "lucide-react";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 import { BookingDetailModal } from "@/components/admin/BookingDetailModal";
+import { CreateBookingModal } from "@/components/admin/CreateBookingModal";
 
-interface Driver { id: string; name: string; email: string }
+interface Driver { id: string; name: string; email: string; commissionPercent: number }
+interface Service { id: string; name: string; basePrice: number; currency: string }
 interface Booking {
   id: string;
   clientName: string;
@@ -32,6 +34,7 @@ interface Booking {
 interface BookingsClientProps {
   bookings: Booking[];
   drivers: Driver[];
+  services: Service[];
 }
 
 const STATUS_LABELS: Record<string, string> = {
@@ -48,10 +51,11 @@ function formatEuros(cents: number) {
   return new Intl.NumberFormat("pt-PT", { style: "currency", currency: "EUR" }).format(cents / 100);
 }
 
-export function BookingsClient({ bookings, drivers }: BookingsClientProps) {
+export function BookingsClient({ bookings, drivers, services }: BookingsClientProps) {
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("ALL");
   const [selectedBooking, setSelectedBooking] = useState<Booking | null>(null);
+  const [createOpen, setCreateOpen] = useState(false);
 
   const filtered = useMemo(() => {
     return bookings.filter((b) => {
@@ -70,6 +74,19 @@ export function BookingsClient({ bookings, drivers }: BookingsClientProps) {
 
   return (
     <>
+      {/* Header row */}
+      <div className="flex items-center justify-between mb-5">
+        <div />
+        <button
+          onClick={() => setCreateOpen(true)}
+          className="flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-semibold transition-colors"
+          style={{ backgroundColor: "var(--color-brand-500)", color: "#fff" }}
+        >
+          <Plus size={15} />
+          Nueva reserva
+        </button>
+      </div>
+
       {/* Filtros */}
       <div className="flex flex-col sm:flex-row gap-3 mb-5">
         {/* Buscador */}
@@ -248,6 +265,15 @@ export function BookingsClient({ bookings, drivers }: BookingsClientProps) {
           booking={selectedBooking}
           drivers={drivers}
           onClose={() => setSelectedBooking(null)}
+        />
+      )}
+
+      {/* Modal nueva reserva */}
+      {createOpen && (
+        <CreateBookingModal
+          services={services}
+          drivers={drivers}
+          onClose={() => setCreateOpen(false)}
         />
       )}
     </>
