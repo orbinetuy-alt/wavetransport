@@ -8,6 +8,7 @@ import {
   CalendarCheck,
   Users,
   CreditCard,
+  Briefcase,
   Settings,
   ChevronRight,
 } from "lucide-react";
@@ -32,6 +33,11 @@ const navItems = [
     label: "Liquidaciones",
     href: "/admin/settlements",
     icon: CreditCard,
+  },
+  {
+    label: "Servicios",
+    href: "/admin/services",
+    icon: Briefcase,
   },
   {
     label: "Ajustes",
