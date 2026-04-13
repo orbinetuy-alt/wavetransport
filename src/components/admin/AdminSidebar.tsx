@@ -93,7 +93,7 @@ export function AdminSidebar() {
               <Icon
                 size={18}
                 style={{ color: isActive ? "var(--color-brand-400)" : "var(--color-text-muted)" }}
-                className="transition-colors group-hover:text-[var(--color-brand-400)] shrink-0"
+                className="transition-colors group-hover:text-(--color-brand-400) shrink-0"
               />
               <span className="flex-1">{item.label}</span>
               {isActive && (
