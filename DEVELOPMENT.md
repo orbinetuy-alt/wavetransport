@@ -5,6 +5,43 @@ Automatiza el flujo de pagos y liquidaciones a choferes mediante Stripe Connect.
 
 ---
 
+## Arquitectura de hosting
+
+```
+wavetransports.pt          → Landing estática en cPanel (sin backend)
+app.wavetransports.pt      → Next.js en Vercel (toda la lógica)
+```
+
+### Por qué esta separación
+El cPanel del cliente no admite backend (Node.js). La landing es HTML/CSS/JS estático.
+Toda la lógica (DB, auth, pagos, webhooks) vive en Vercel.
+
+### Cómo se conectan
+La landing llama a la API de Vercel para obtener datos y procesar reservas:
+
+```
+Landing (cPanel)                     Vercel (Next.js)
+─────────────────                    ────────────────────────────
+fetch /api/public/services     →     Devuelve lista de servicios y precios (sin auth)
+Botón "Reservar"               →     Redirige a app.wavetransports.pt/booking
+                                     (formulario con Clerk + Stripe Checkout)
+```
+
+**El formulario de reserva vive en Next.js** (no en la landing) para evitar problemas
+de CORS con Clerk auth y simplificar el flujo.
+
+### CORS
+Las rutas `/api/public/*` tienen header `Access-Control-Allow-Origin: https://wavetransports.pt`
+para aceptar peticiones desde la landing.
+
+### Configuración DNS (cuando llegue el dominio)
+1. En cPanel → crear registro CNAME: `app.wavetransports.pt` → `cname.vercel-dns.com`
+2. En Vercel → Settings → Domains → añadir `app.wavetransports.pt`
+3. En Vercel → Settings → Environment Variables → actualizar `NEXT_PUBLIC_APP_URL=https://app.wavetransports.pt`
+4. No requiere cambios de código.
+
+---
+
 ## Stack tecnológico
 
 | Capa | Tecnología |
@@ -15,7 +52,8 @@ Automatiza el flujo de pagos y liquidaciones a choferes mediante Stripe Connect.
 | Auth | Clerk v7 |
 | Pagos | Stripe Connect Express |
 | Estilos | Tailwind CSS v4 (config en `globals.css` via `@theme`) |
-| Deploy | Vercel → `wavetransports.vercel.app` |
+| Deploy app | Vercel → `wavetransports.vercel.app` (futuro: `app.wavetransports.pt`) |
+| Deploy landing | cPanel → `wavetransports.pt` (estático, sin backend) |
 | Repo | `github.com/orbinetuy-alt/wavetransport` |
 
 ---
