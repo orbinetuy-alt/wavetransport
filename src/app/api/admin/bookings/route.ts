@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { requireRole } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { z } from "zod";
+import { sendTripAssignedEmail } from "@/lib/email";
 
 const createSchema = z.object({
   clientName: z.string().min(1).max(100),
@@ -106,6 +107,22 @@ export async function POST(req: NextRequest) {
       driver: { select: { id: true, name: true, email: true } },
     },
   });
+
+  // Email al chofer si ya está asignado desde el momento de la creación
+  if (booking.driver) {
+    sendTripAssignedEmail({
+      driverName: booking.driver.name,
+      driverEmail: booking.driver.email,
+      clientName: booking.clientName,
+      serviceName: booking.service.name,
+      pickupAddress: booking.pickupAddress,
+      dropoffAddress: booking.dropoffAddress,
+      pickupDatetime: booking.pickupDatetime.toISOString(),
+      passengers: booking.passengers,
+      driverAmountCents: booking.driverAmountCents,
+      notes: booking.notes,
+    }).catch(console.error);
+  }
 
   return NextResponse.json(booking, { status: 201 });
 }
