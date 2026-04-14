@@ -52,7 +52,8 @@ export async function PATCH(
 
   // ── Responder al viaje (aceptar / rechazar) ──
   if (parsed.data.action === "respond") {
-    if (booking.driverResponse !== "PENDING") {
+    // Accept null as PENDING (bookings assigned before the driverResponse field was added)
+    if (booking.driverResponse !== "PENDING" && booking.driverResponse !== null) {
       return NextResponse.json(
         { error: "Ya respondiste a este viaje" },
         { status: 409 }

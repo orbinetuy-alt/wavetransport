@@ -90,7 +90,8 @@ function TripCard({ booking }: { booking: Booking }) {
     }
   }
 
-  const showRespondButtons = localResponse === "PENDING";
+  // Treat null as PENDING (bookings assigned before the driverResponse field was added)
+  const showRespondButtons = localResponse === null || localResponse === "PENDING";
   const showStartButton = localResponse === "ACCEPTED" && localStatus === "CONFIRMED";
   const showCompleteButton = localResponse === "ACCEPTED" && localStatus === "IN_PROGRESS";
 

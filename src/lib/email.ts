@@ -8,7 +8,8 @@ const resend = process.env.RESEND_API_KEY
   ? new Resend(process.env.RESEND_API_KEY)
   : null;
 
-const FROM = "WaveTransports <noreply@wavetransports.pt>";
+// Use verified domain if set, otherwise fall back to Resend's onboarding domain for testing
+const FROM = process.env.EMAIL_FROM ?? "WaveTransports <onboarding@resend.dev>";
 
 function formatEuros(cents: number) {
   return new Intl.NumberFormat("pt-PT", { style: "currency", currency: "EUR" }).format(cents / 100);
