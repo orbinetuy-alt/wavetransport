@@ -203,3 +203,65 @@ export async function sendTripUnassignedEmail(params: {
     `.trim(),
   });
 }
+
+// ─────────────────────────────────────────────
+// Email: Chofer rechazó el viaje → notificar al admin
+// ─────────────────────────────────────────────
+export async function sendTripRejectedByDriverEmail(params: {
+  driverName: string;
+  bookingId: string;
+  clientName: string;
+  serviceName: string;
+  pickupAddress: string;
+  dropoffAddress: string;
+  pickupDatetime: string;
+}) {
+  if (!resend) return;
+  const adminEmail = process.env.ADMIN_EMAIL;
+  if (!adminEmail) {
+    console.warn("⚠️  ADMIN_EMAIL not set — rejection notification skipped");
+    return;
+  }
+
+  const { driverName, bookingId, clientName, serviceName, pickupAddress, dropoffAddress, pickupDatetime } = params;
+
+  await resend.emails.send({
+    from: FROM,
+    to: adminEmail,
+    subject: `⚠️ Chofer rechazó el viaje — ${formatDate(pickupDatetime)}`,
+    html: `
+<!DOCTYPE html>
+<html lang="pt">
+<body style="margin:0;padding:32px 16px;background:#0d1b2e;font-family:'Segoe UI',Arial,sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;margin:0 auto;">
+    <tr>
+      <td style="background:#132338;border-radius:16px;padding:32px;border:1px solid #243d58;">
+        <p style="margin:0 0 8px;font-size:22px;font-weight:700;color:#ffffff;">🌊 WaveTransports</p>
+        <p style="margin:0 0 8px;font-size:13px;font-weight:600;color:#f59e0b;text-transform:uppercase;letter-spacing:1px;">Acción requerida</p>
+        <h2 style="margin:0 0 16px;color:#ffffff;">El chofer rechazó un viaje</h2>
+        <div style="background:#1a2e45;border-radius:12px;padding:20px;margin-bottom:20px;border:1px solid #243d58;">
+          <p style="margin:0 0 8px;font-size:13px;color:#5c7d96;text-transform:uppercase;letter-spacing:0.8px;">CHOFER</p>
+          <p style="margin:0 0 16px;font-size:16px;font-weight:600;color:#ef4444;">${driverName} rechazó el viaje</p>
+          <p style="margin:0 0 4px;font-size:13px;color:#5c7d96;text-transform:uppercase;letter-spacing:0.8px;">SERVICIO</p>
+          <p style="margin:0 0 12px;font-size:15px;color:#ffffff;">${serviceName}</p>
+          <p style="margin:0 0 4px;font-size:13px;color:#5c7d96;text-transform:uppercase;letter-spacing:0.8px;">CLIENTE</p>
+          <p style="margin:0 0 12px;font-size:15px;color:#a8c4db;">${clientName}</p>
+          <p style="margin:0 0 4px;font-size:13px;color:#5c7d96;text-transform:uppercase;letter-spacing:0.8px;">FECHA Y HORA</p>
+          <p style="margin:0 0 12px;font-size:15px;font-weight:600;color:#ffffff;">${formatDate(pickupDatetime)}</p>
+          <p style="margin:0 0 4px;font-size:13px;color:#5c7d96;text-transform:uppercase;letter-spacing:0.8px;">RUTA</p>
+          <p style="margin:0 0 4px;font-size:14px;color:#ffffff;">📍 ${pickupAddress}</p>
+          <p style="margin:0;font-size:14px;color:#ffffff;">🏁 ${dropoffAddress}</p>
+        </div>
+        <p style="color:#a8c4db;font-size:14px;margin:0 0 20px;">Necesitas asignar un nuevo chofer a esta reserva.</p>
+        <a href="https://wavetransports.vercel.app/admin/bookings"
+          style="display:inline-block;background:#f59e0b;color:#0d1b2e;text-decoration:none;padding:14px 28px;border-radius:10px;font-size:15px;font-weight:700;">
+          Reasignar chofer →
+        </a>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
+    `.trim(),
+  });
+}

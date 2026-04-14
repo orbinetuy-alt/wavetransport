@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { X, Loader2, MapPin, Calendar, Users, FileText, Car } from "lucide-react";
+import { X, Loader2, MapPin, Calendar, Users, FileText, Car, CheckCircle, XCircle, Clock } from "lucide-react";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
 
@@ -24,6 +24,7 @@ interface Booking {
   stripeFeeCents: number;
   status: string;
   paymentStatus: string;
+  driverResponse: "PENDING" | "ACCEPTED" | "REJECTED" | null;
   service: { name: string };
   driver: { id: string; name: string } | null;
 }
@@ -207,6 +208,29 @@ export function BookingDetailModal({ booking, drivers, onClose }: BookingDetailM
                     <option key={d.id} value={d.id}>{d.name} ({d.email})</option>
                   ))}
                 </select>
+                {/* Driver response status */}
+                {booking.driver && booking.driverResponse && (
+                  <div className="mt-2 flex items-center gap-1.5">
+                    {booking.driverResponse === "PENDING" && (
+                      <>
+                        <Clock size={12} style={{ color: "#f59e0b" }} />
+                        <span className="text-xs" style={{ color: "#f59e0b" }}>Esperando respuesta del chofer</span>
+                      </>
+                    )}
+                    {booking.driverResponse === "ACCEPTED" && (
+                      <>
+                        <CheckCircle size={12} style={{ color: "#10b981" }} />
+                        <span className="text-xs" style={{ color: "#10b981" }}>Chofer aceptó el viaje</span>
+                      </>
+                    )}
+                    {booking.driverResponse === "REJECTED" && (
+                      <>
+                        <XCircle size={12} style={{ color: "#ef4444" }} />
+                        <span className="text-xs" style={{ color: "#ef4444" }}>Chofer rechazó el viaje — reasignar</span>
+                      </>
+                    )}
+                  </div>
+                )}
               </div>
 
               {/* Notas */}

@@ -26,6 +26,7 @@ interface Booking {
   stripeFeeCents: number;
   status: string;
   paymentStatus: string;
+  driverResponse: "PENDING" | "ACCEPTED" | "REJECTED" | null;
   service: { id: string; name: string };
   driver: { id: string; name: string; email: string } | null;
   settlement: { id: string; status: string } | null;

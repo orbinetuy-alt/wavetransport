@@ -47,6 +47,12 @@ enum SettlementStatus {
   ON_HOLD      // retenido por disputa/refund
 }
 
+enum DriverResponse {
+  PENDING    // asignado pero el chofer aún no respondió
+  ACCEPTED   // chofer aceptó el viaje
+  REJECTED   // chofer rechazó el viaje
+}
+
 enum PayoutFrequency {
   WEEKLY
   BIWEEKLY
@@ -141,6 +147,7 @@ model Booking {
   // Estados
   status                  BookingStatus  @default(PENDING)
   paymentStatus           PaymentStatus  @default(PENDING)
+  driverResponse          DriverResponse?   // null = sin chofer, PENDING = esperando respuesta
 
   // Stripe
   stripePaymentIntentId   String?        @unique

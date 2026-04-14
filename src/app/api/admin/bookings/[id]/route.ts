@@ -56,9 +56,15 @@ export async function PATCH(
     },
   });
 
+  // When driver assignment changes, reset driverResponse accordingly
+  const driverChanging = "driverId" in parsed.data && parsed.data.driverId !== previous?.driverId;
+  const driverResponseOverride = driverChanging
+    ? { driverResponse: parsed.data.driverId ? "PENDING" as const : null }
+    : {};
+
   const booking = await prisma.booking.update({
     where: { id },
-    data: parsed.data,
+    data: { ...parsed.data, ...driverResponseOverride },
     include: {
       service: { select: { name: true } },
       driver: { select: { id: true, name: true, email: true } },
@@ -66,7 +72,7 @@ export async function PATCH(
   });
 
   // ── Notificaciones por email al cambiar chofer ──
-  const driverChanged = "driverId" in parsed.data && parsed.data.driverId !== previous?.driverId;
+  const driverChanged = driverChanging;
   if (driverChanged) {
     // Nuevo chofer asignado
     if (booking.driver) {
