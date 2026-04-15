@@ -81,7 +81,14 @@ function TripCard({ booking }: { booking: Booking }) {
       if (!res.ok) throw new Error(data.error ?? "Error");
       // Update local state immediately for snappy UX
       if ("driverResponse" in data) setLocalResponse(data.driverResponse);
-      if ("status" in data && data.status !== localStatus) setLocalStatus(data.status);
+      if ("status" in data && data.status !== localStatus) {
+        setLocalStatus(data.status);
+        // Navigate to active trip page when trip is started
+        if (data.status === "IN_PROGRESS") {
+          router.push(`/driver/trips/${booking.id}/active`);
+          return;
+        }
+      }
       startTransition(() => router.refresh());
     } catch (e) {
       setError(e instanceof Error ? e.message : "Error");

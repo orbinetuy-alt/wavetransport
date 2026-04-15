@@ -13,7 +13,7 @@ const schema = z.discriminatedUnion("action", [
   }),
   z.object({
     action: z.literal("status"),
-    status: z.enum(["IN_PROGRESS", "COMPLETED"]),
+    status: z.enum(["IN_PROGRESS", "COMPLETED", "NO_SHOW"]),
   }),
 ]);
 
@@ -91,6 +91,12 @@ export async function PATCH(
     if (parsed.data.status === "IN_PROGRESS" && booking.status !== "CONFIRMED") {
       return NextResponse.json(
         { error: "El viaje debe estar Confirmado para iniciarlo" },
+        { status: 409 }
+      );
+    }
+    if (parsed.data.status === "NO_SHOW" && booking.status !== "IN_PROGRESS") {
+      return NextResponse.json(
+        { error: "El viaje debe estar En curso para marcar no-show" },
         { status: 409 }
       );
     }
