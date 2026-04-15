@@ -95,6 +95,23 @@ function TripCard({ booking }: { booking: Booking }) {
   const showStartButton = localResponse === "ACCEPTED" && localStatus === "CONFIRMED";
   const showCompleteButton = localResponse === "ACCEPTED" && localStatus === "IN_PROGRESS";
 
+  // Ventana de 2 horas: solo se puede iniciar dentro de las 2h previas al viaje
+  const pickup = new Date(booking.pickupDatetime);
+  const now = new Date();
+  const diffMs = pickup.getTime() - now.getTime();
+  const canStart = diffMs <= 2 * 60 * 60 * 1000; // <= 2h de diferencia (incluye si ya pasó)
+
+  // Tiempo hasta que se habilite el botón
+  function formatTimeUntilStart(): string {
+    const totalMinutes = Math.ceil(diffMs / 60000 - 120); // minutos restantes hasta la ventana
+    if (totalMinutes <= 0) return "";
+    const hours = Math.floor(totalMinutes / 60);
+    const mins = totalMinutes % 60;
+    if (hours > 0 && mins > 0) return `${hours}h ${mins}min`;
+    if (hours > 0) return `${hours}h`;
+    return `${mins}min`;
+  }
+
   return (
     <li
       className="rounded-xl border p-4 transition-colors"
@@ -204,19 +221,26 @@ function TripCard({ booking }: { booking: Booking }) {
           )}
 
           {showStartButton && (
-            <button
-              disabled={isPending || loadingAction !== null}
-              onClick={() => callApi({ action: "status", status: "IN_PROGRESS" }, "start")}
-              className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-semibold transition-opacity disabled:opacity-50"
-              style={{ backgroundColor: "var(--color-brand-500)", color: "#fff" }}
-            >
-              {loadingAction === "start" ? (
-                <Loader2 size={14} className="animate-spin" />
-              ) : (
-                <Play size={15} />
+            <div className="flex-1 flex flex-col gap-1">
+              <button
+                disabled={isPending || loadingAction !== null || !canStart}
+                onClick={() => callApi({ action: "status", status: "IN_PROGRESS" }, "start")}
+                className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-semibold transition-opacity disabled:opacity-40"
+                style={{ backgroundColor: "var(--color-brand-500)", color: "#fff" }}
+              >
+                {loadingAction === "start" ? (
+                  <Loader2 size={14} className="animate-spin" />
+                ) : (
+                  <Play size={15} />
+                )}
+                Iniciar viaje
+              </button>
+              {!canStart && (
+                <p className="text-center text-xs" style={{ color: "var(--color-text-muted)" }}>
+                  Disponible en {formatTimeUntilStart()}
+                </p>
               )}
-              Iniciar viaje
-            </button>
+            </div>
           )}
 
           {showCompleteButton && (

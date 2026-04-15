@@ -94,6 +94,20 @@ export async function PATCH(
         { status: 409 }
       );
     }
+
+    // Validar ventana de 2 horas para iniciar viaje
+    if (parsed.data.status === "IN_PROGRESS") {
+      const now = new Date();
+      const pickup = new Date(booking.pickupDatetime);
+      const diffMs = pickup.getTime() - now.getTime();
+      const twoHoursMs = 2 * 60 * 60 * 1000;
+      if (diffMs > twoHoursMs) {
+        return NextResponse.json(
+          { error: "Solo podés iniciar el viaje dentro de las 2 horas previas a la hora de salida" },
+          { status: 409 }
+        );
+      }
+    }
     if (parsed.data.status === "COMPLETED" && booking.status !== "IN_PROGRESS") {
       return NextResponse.json(
         { error: "El viaje debe estar En curso para completarlo" },
