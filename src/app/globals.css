@@ -40,17 +40,6 @@
   --font-mono: var(--font-geist-mono);
 }
 
-  /* Semánticos */
-  --color-success: #10b981;
-  --color-warning: #f59e0b;
-  --color-danger:  #ef4444;
-  --color-info:    #3b82f6;
-
-  /* Tipografía */
-  --font-sans: var(--font-jakarta), system-ui, sans-serif;
-  --font-mono: var(--font-geist-mono);
-}
-
 /* ── Reset base ── */
 *, *::before, *::after {
   box-sizing: border-box;
