@@ -1,6 +1,7 @@
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { getCurrentUserRole } from "@/lib/auth";
+import { Navbar } from "@/components/landing/Navbar";
 
 export default async function Home() {
   const { userId } = await auth();
@@ -11,6 +12,14 @@ export default async function Home() {
     if (role === "DRIVER") redirect("/driver");
   }
 
-  redirect("/sign-in");
+  return (
+    <main className="min-h-screen" style={{ backgroundColor: "var(--color-surface-base)" }}>
+      <Navbar />
+      {/* Hero y demás secciones se irán añadiendo aquí */}
+      <div className="flex items-center justify-center min-h-screen">
+        <p style={{ color: "var(--color-text-muted)" }}>Landing en construcción</p>
+      </div>
+    </main>
+  );
 }
 
