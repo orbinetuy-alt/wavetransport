@@ -191,7 +191,7 @@ export default async function DriverDashboardPage() {
               {recentBookings.map((booking) => (
                 <li
                   key={booking.id}
-                  className="px-4 lg:px-6 py-4 flex items-center justify-between gap-4 hover:bg-white/[0.02] transition-colors"
+                  className="px-4 lg:px-6 py-4 flex items-center justify-between gap-4 hover:bg-brand-50 transition-colors"
                 >
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-medium truncate" style={{ color: "var(--color-text-primary)" }}>

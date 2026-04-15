@@ -157,7 +157,7 @@ export default async function AdminDashboardPage() {
                   {stats.recentBookings.map((booking, i) => (
                     <tr
                       key={booking.id}
-                      className="transition-colors hover:bg-white/[0.02]"
+                      className="transition-colors hover:bg-brand-50"
                       style={{
                         borderBottom:
                           i < stats.recentBookings.length - 1
