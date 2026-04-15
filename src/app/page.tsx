@@ -2,6 +2,9 @@ import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { getCurrentUserRole } from "@/lib/auth";
 import { Navbar } from "@/components/landing/Navbar";
+import { HeroSection } from "@/components/landing/HeroSection";
+import { ServicesSection } from "@/components/landing/ServicesSection";
+import { HowItWorksSection } from "@/components/landing/HowItWorksSection";
 
 export default async function Home() {
   const { userId } = await auth();
@@ -15,9 +18,9 @@ export default async function Home() {
   return (
     <main className="min-h-screen bg-white">
       <Navbar />
-      <div className="flex items-center justify-center min-h-screen">
-        <p className="text-gray-400">Landing en construcción</p>
-      </div>
+      <HeroSection />
+      <ServicesSection />
+      <HowItWorksSection />
     </main>
   );
 }

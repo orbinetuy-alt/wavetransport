@@ -43,7 +43,7 @@ export function Navbar() {
         boxShadow: scrolled ? "0 2px 16px rgba(0,0,0,0.07)" : "none",
       }}
     >
-      <nav className="max-w-7xl mx-auto px-6 lg:px-8 flex items-center justify-between" style={{ height: "72px" }}>
+      <nav className="relative max-w-7xl mx-auto px-6 lg:px-8 flex items-center justify-between" style={{ height: "72px" }}>
 
         {/* Logo */}
         <Link href="/" className="flex items-center shrink-0">
@@ -58,12 +58,12 @@ export function Navbar() {
         </Link>
 
         {/* Desktop links */}
-        <ul className="hidden md:flex items-center gap-1">
+        <ul className="hidden md:flex items-center gap-1 absolute left-1/2 -translate-x-1/2">
           {NAV_LINKS.map((link) => (
             <li key={link.href}>
               <button
                 onClick={() => handleNavClick(link.href)}
-                className="px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200 hover:bg-gray-100 cursor-pointer text-gray-600 hover:text-gray-900"
+                className="px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200 cursor-pointer text-gray-500 hover:text-[#0e81b8] hover:underline underline-offset-4"
               >
                 {link.label}
               </button>
@@ -115,7 +115,7 @@ export function Navbar() {
             <button
               key={link.href}
               onClick={() => handleNavClick(link.href)}
-              className="text-left px-4 py-3 rounded-xl text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors duration-150 cursor-pointer"
+              className="text-left px-4 py-3 rounded-xl text-sm font-medium text-gray-600 hover:text-[#0e81b8] hover:bg-blue-50 transition-colors duration-150 cursor-pointer"
             >
               {link.label}
             </button>
