@@ -22,7 +22,6 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Close mobile menu on resize to desktop
   useEffect(() => {
     const onResize = () => { if (window.innerWidth >= 768) setMenuOpen(false); };
     window.addEventListener("resize", onResize);
@@ -39,18 +38,12 @@ export function Navbar() {
     <header
       className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
       style={{
-        backgroundColor: scrolled
-          ? "rgba(13, 27, 46, 0.92)"
-          : "rgba(13, 27, 46, 0.4)",
-        backdropFilter: "blur(16px)",
-        WebkitBackdropFilter: "blur(16px)",
-        borderBottom: scrolled
-          ? "1px solid rgba(36, 61, 88, 0.8)"
-          : "1px solid transparent",
-        boxShadow: scrolled ? "0 4px 32px rgba(0,0,0,0.3)" : "none",
+        backgroundColor: "#ffffff",
+        borderBottom: scrolled ? "1px solid #e5e7eb" : "1px solid #f3f4f6",
+        boxShadow: scrolled ? "0 2px 16px rgba(0,0,0,0.07)" : "none",
       }}
     >
-      <nav className="max-w-7xl mx-auto px-6 lg:px-8 h-18 flex items-center justify-between" style={{ height: "72px" }}>
+      <nav className="max-w-7xl mx-auto px-6 lg:px-8 flex items-center justify-between" style={{ height: "72px" }}>
 
         {/* Logo */}
         <Link href="/" className="flex items-center shrink-0">
@@ -60,7 +53,6 @@ export function Navbar() {
             width={160}
             height={52}
             className="h-10 w-auto"
-            style={{ mixBlendMode: "screen", filter: "brightness(1.1)" }}
             priority
           />
         </Link>
@@ -71,10 +63,7 @@ export function Navbar() {
             <li key={link.href}>
               <button
                 onClick={() => handleNavClick(link.href)}
-                className="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:bg-white/8 cursor-pointer"
-                style={{ color: "var(--color-text-secondary)" }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "var(--color-text-primary)")}
-                onMouseLeave={(e) => (e.currentTarget.style.color = "var(--color-text-secondary)")}
+                className="px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200 hover:bg-gray-100 cursor-pointer text-gray-600 hover:text-gray-900"
               >
                 {link.label}
               </button>
@@ -86,18 +75,15 @@ export function Navbar() {
         <div className="hidden md:flex items-center gap-3">
           <Link
             href="/sign-in"
-            className="px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200 hover:bg-white/8"
-            style={{ color: "var(--color-text-secondary)" }}
+            className="px-4 py-2 rounded-lg text-sm font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 transition-colors duration-200"
           >
             Acceder
           </Link>
           <button
             onClick={() => handleNavClick("#reservar")}
-            className="px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 hover:scale-105 active:scale-100 cursor-pointer"
+            className="px-5 py-2.5 rounded-xl text-sm font-semibold text-white transition-all duration-200 hover:scale-105 active:scale-100 cursor-pointer"
             style={{
-              background: "linear-gradient(135deg, #0e81b8, #0b6a97)",
-              color: "#fff",
-              boxShadow: "0 4px 16px rgba(14, 129, 184, 0.35)",
+              backgroundColor: "#111827",
             }}
           >
             Reservar ahora
@@ -107,8 +93,7 @@ export function Navbar() {
         {/* Mobile hamburger */}
         <button
           onClick={() => setMenuOpen((v) => !v)}
-          className="md:hidden p-2 rounded-lg transition-colors hover:bg-white/10 cursor-pointer"
-          style={{ color: "var(--color-text-primary)" }}
+          className="md:hidden p-2 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors cursor-pointer"
           aria-label="Toggle menu"
         >
           {menuOpen ? <X size={22} /> : <Menu size={22} />}
@@ -121,8 +106,8 @@ export function Navbar() {
         style={{
           maxHeight: menuOpen ? "400px" : "0px",
           opacity: menuOpen ? 1 : 0,
-          borderTop: menuOpen ? "1px solid rgba(36, 61, 88, 0.6)" : "1px solid transparent",
-          backgroundColor: "rgba(13, 27, 46, 0.97)",
+          borderTop: menuOpen ? "1px solid #f3f4f6" : "1px solid transparent",
+          backgroundColor: "#ffffff",
         }}
       >
         <div className="px-6 py-4 flex flex-col gap-1">
@@ -130,29 +115,23 @@ export function Navbar() {
             <button
               key={link.href}
               onClick={() => handleNavClick(link.href)}
-              className="text-left px-4 py-3 rounded-xl text-sm font-medium transition-colors duration-150 hover:bg-white/8 cursor-pointer"
-              style={{ color: "var(--color-text-secondary)" }}
+              className="text-left px-4 py-3 rounded-xl text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors duration-150 cursor-pointer"
             >
               {link.label}
             </button>
           ))}
-          <div className="mt-3 pt-3 flex flex-col gap-2" style={{ borderTop: "1px solid rgba(36, 61, 88, 0.6)" }}>
+          <div className="mt-3 pt-3 flex flex-col gap-2 border-t border-gray-100">
             <Link
               href="/sign-in"
               onClick={() => setMenuOpen(false)}
-              className="px-4 py-3 rounded-xl text-sm font-medium text-center transition-colors hover:bg-white/8"
-              style={{ color: "var(--color-text-secondary)" }}
+              className="px-4 py-3 rounded-xl text-sm font-medium text-center text-gray-500 hover:bg-gray-100 transition-colors"
             >
               Acceder
             </Link>
             <button
               onClick={() => handleNavClick("#reservar")}
-              className="px-4 py-3.5 rounded-xl text-sm font-semibold text-center cursor-pointer"
-              style={{
-                background: "linear-gradient(135deg, #0e81b8, #0b6a97)",
-                color: "#fff",
-                boxShadow: "0 4px 16px rgba(14, 129, 184, 0.3)",
-              }}
+              className="px-4 py-3.5 rounded-xl text-sm font-semibold text-center text-white cursor-pointer"
+              style={{ backgroundColor: "#111827" }}
             >
               Reservar ahora
             </button>

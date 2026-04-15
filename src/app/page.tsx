@@ -13,11 +13,10 @@ export default async function Home() {
   }
 
   return (
-    <main className="min-h-screen" style={{ backgroundColor: "var(--color-surface-base)" }}>
+    <main className="min-h-screen bg-white">
       <Navbar />
-      {/* Hero y demás secciones se irán añadiendo aquí */}
       <div className="flex items-center justify-center min-h-screen">
-        <p style={{ color: "var(--color-text-muted)" }}>Landing en construcción</p>
+        <p className="text-gray-400">Landing en construcción</p>
       </div>
     </main>
   );
