@@ -2,7 +2,7 @@
 
 /* ─────────────────────────────────────────────
    Wave Transports — Design System
-   Paleta: Light — igual que la landing
+   Paleta: Light Clean
 ───────────────────────────────────────────── */
 
 @theme inline {
@@ -12,22 +12,22 @@
   --color-brand-200: #80c6e6;
   --color-brand-300: #4dafdc;
   --color-brand-400: #2698d2;
-  --color-brand-500: #0e81b8;  /* azul principal */
+  --color-brand-500: #0e81b8;
   --color-brand-600: #0b6a97;
   --color-brand-700: #085476;
   --color-brand-800: #053d55;
   --color-brand-900: #022634;
 
-  /* Superficie — celeste azulado */
-  --color-surface-base:   #c2dff0;  /* fondo principal — celeste */
-  --color-surface-card:   #d8edf8;  /* cards — celeste claro */
-  --color-surface-raised: #aed0e6;  /* hover/elevated */
-  --color-surface-border: rgba(14,129,184,0.30);  /* bordes sutiles */
+  /* Superficie — blanco y gris muy suave, sin celeste */
+  --color-surface-base:   #f4f6f8;  /* fondo — gris muy claro */
+  --color-surface-card:   #ffffff;  /* cards — blanco */
+  --color-surface-raised: #eaeef2;  /* hover */
+  --color-surface-border: #dde3ea;  /* bordes */
 
-  /* Texto — navy oscuro como la landing */
+  /* Texto — navy oscuro */
   --color-text-primary:   #0a2d52;
   --color-text-secondary: #4a6a8a;
-  --color-text-muted:     #7a9ab8;
+  --color-text-muted:     #8aa0b8;
 
   /* Semánticos */
   --color-success: #10b981;
