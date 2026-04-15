@@ -18,11 +18,11 @@
   --color-brand-800: #053d55;
   --color-brand-900: #022634;
 
-  /* Superficie — light, igual que ServicesSection de la landing */
-  --color-surface-base:   #f0f7ff;  /* fondo principal — azul muy claro */
-  --color-surface-card:   #ffffff;  /* cards — blanco puro */
-  --color-surface-raised: #e0eef8;  /* hover/elevated */
-  --color-surface-border: rgba(14,129,184,0.18);  /* bordes sutiles */
+  /* Superficie — celeste azulado */
+  --color-surface-base:   #c2dff0;  /* fondo principal — celeste */
+  --color-surface-card:   #d8edf8;  /* cards — celeste claro */
+  --color-surface-raised: #aed0e6;  /* hover/elevated */
+  --color-surface-border: rgba(14,129,184,0.30);  /* bordes sutiles */
 
   /* Texto — navy oscuro como la landing */
   --color-text-primary:   #0a2d52;
