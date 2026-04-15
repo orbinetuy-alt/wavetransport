@@ -30,7 +30,7 @@ export function DriverHeader({ title, subtitle }: DriverHeaderProps) {
 
       <div className="flex items-center gap-3">
         <button
-          className="relative p-2 rounded-lg transition-colors hover:bg-white/5"
+          className="relative p-2 rounded-lg transition-colors"
           style={{ color: "var(--color-text-secondary)" }}
         >
           <Bell size={18} />

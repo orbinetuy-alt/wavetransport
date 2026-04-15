@@ -29,7 +29,7 @@ export function AdminHeader({ title, subtitle }: AdminHeaderProps) {
       <div className="flex items-center gap-4">
         {/* Notificaciones (placeholder) */}
         <button
-          className="relative p-2 rounded-lg transition-colors hover:bg-white/5"
+          className="relative p-2 rounded-lg transition-colors"
           style={{ color: "var(--color-text-secondary)" }}
         >
           <Bell size={18} />

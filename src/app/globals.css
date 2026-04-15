@@ -2,11 +2,11 @@
 
 /* ─────────────────────────────────────────────
    Wave Transports — Design System
-   Paleta: Brand Blue Navy
+   Paleta: Light — igual que la landing
 ───────────────────────────────────────────── */
 
 @theme inline {
-  /* Brand colors (extraídos del logo) */
+  /* Brand colors */
   --color-brand-50:  #e6f4fa;
   --color-brand-100: #b3ddf0;
   --color-brand-200: #80c6e6;
@@ -18,16 +18,27 @@
   --color-brand-800: #053d55;
   --color-brand-900: #022634;
 
-  /* Superficie — navy azul saturado, alineado con la landing */
-  --color-surface-base:   #081830;  /* fondo principal — navy profundo */
-  --color-surface-card:   #0c2d54;  /* cards */
-  --color-surface-raised: #113a6b;  /* hover/elevated */
-  --color-surface-border: #1d5290;  /* bordes */
+  /* Superficie — light, igual que ServicesSection de la landing */
+  --color-surface-base:   #f0f7ff;  /* fondo principal — azul muy claro */
+  --color-surface-card:   #ffffff;  /* cards — blanco puro */
+  --color-surface-raised: #e0eef8;  /* hover/elevated */
+  --color-surface-border: rgba(14,129,184,0.18);  /* bordes sutiles */
 
-  /* Texto — blanco limpio y azul-celeste de la landing */
-  --color-text-primary:   #ffffff;
-  --color-text-secondary: #7dd3f0;  /* celeste de la landing */
-  --color-text-muted:     #4a85b8;
+  /* Texto — navy oscuro como la landing */
+  --color-text-primary:   #0a2d52;
+  --color-text-secondary: #4a6a8a;
+  --color-text-muted:     #7a9ab8;
+
+  /* Semánticos */
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-danger:  #ef4444;
+  --color-info:    #3b82f6;
+
+  /* Tipografía */
+  --font-sans: var(--font-jakarta), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono);
+}
 
   /* Semánticos */
   --color-success: #10b981;
@@ -46,7 +57,7 @@
 }
 
 html {
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 body {
