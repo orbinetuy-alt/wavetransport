@@ -2,7 +2,7 @@
 
 /* ─────────────────────────────────────────────
    Wave Transports — Design System
-   Paleta: Dark Slate + Teal Brand
+   Paleta: Brand Blue Navy
 ───────────────────────────────────────────── */
 
 @theme inline {
@@ -12,22 +12,22 @@
   --color-brand-200: #80c6e6;
   --color-brand-300: #4dafdc;
   --color-brand-400: #2698d2;
-  --color-brand-500: #0e81b8;  /* teal principal */
+  --color-brand-500: #0e81b8;  /* azul principal */
   --color-brand-600: #0b6a97;
   --color-brand-700: #085476;
   --color-brand-800: #053d55;
   --color-brand-900: #022634;
 
-  /* Superficie — dark slate con más brillo y contraste */
-  --color-surface-base:   #0d1b2e;  /* fondo principal */
-  --color-surface-card:   #132338;  /* cards */
-  --color-surface-raised: #1a2e45;  /* hover/elevated */
-  --color-surface-border: #243d58;  /* bordes */
+  /* Superficie — navy azul saturado, alineado con la landing */
+  --color-surface-base:   #081830;  /* fondo principal — navy profundo */
+  --color-surface-card:   #0c2d54;  /* cards */
+  --color-surface-raised: #113a6b;  /* hover/elevated */
+  --color-surface-border: #1d5290;  /* bordes */
 
-  /* Texto — blanco limpio y secundarios más legibles */
+  /* Texto — blanco limpio y azul-celeste de la landing */
   --color-text-primary:   #ffffff;
-  --color-text-secondary: #a8c4db;
-  --color-text-muted:     #5c7d96;
+  --color-text-secondary: #7dd3f0;  /* celeste de la landing */
+  --color-text-muted:     #4a85b8;
 
   /* Semánticos */
   --color-success: #10b981;
