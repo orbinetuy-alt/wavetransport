@@ -25,22 +25,22 @@ const navItems = [
     icon: CalendarCheck,
   },
   {
-    label: "Choferes",
+    label: "Motoristas",
     href: "/admin/drivers",
     icon: Users,
   },
   {
-    label: "Liquidaciones",
+    label: "Liquidações",
     href: "/admin/settlements",
     icon: CreditCard,
   },
   {
-    label: "Servicios",
+    label: "Serviços",
     href: "/admin/services",
     icon: Briefcase,
   },
   {
-    label: "Ajustes",
+    label: "Definições",
     href: "/admin/settings",
     icon: Settings,
   },

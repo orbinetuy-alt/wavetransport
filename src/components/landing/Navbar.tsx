@@ -6,9 +6,9 @@ import Link from "next/link";
 import { Menu, X } from "lucide-react";
 
 const NAV_LINKS = [
-  { label: "Servicios", href: "#servicios" },
-  { label: "Cómo funciona", href: "#como-funciona" },
-  { label: "Flota", href: "#flota" },
+  { label: "Serviços", href: "#servicios" },
+  { label: "Como funciona", href: "#como-funciona" },
+  { label: "Frota", href: "#flota" },
   { label: "Contacto", href: "#contacto" },
 ];
 
@@ -77,7 +77,7 @@ export function Navbar() {
             href="/sign-in"
             className="px-4 py-2 rounded-lg text-sm font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 transition-colors duration-200"
           >
-            Acceder
+            Entrar
           </Link>
           <button
             onClick={() => handleNavClick("#reservar")}
@@ -86,7 +86,7 @@ export function Navbar() {
               backgroundColor: "#111827",
             }}
           >
-            Reservar ahora
+            Reservar agora
           </button>
         </div>
 
@@ -126,14 +126,14 @@ export function Navbar() {
               onClick={() => setMenuOpen(false)}
               className="px-4 py-3 rounded-xl text-sm font-medium text-center text-gray-500 hover:bg-gray-100 transition-colors"
             >
-              Acceder
+              Entrar
             </Link>
             <button
               onClick={() => handleNavClick("#reservar")}
               className="px-4 py-3.5 rounded-xl text-sm font-semibold text-center text-white cursor-pointer"
               style={{ backgroundColor: "#111827" }}
             >
-              Reservar ahora
+              Reservar agora
             </button>
           </div>
         </div>

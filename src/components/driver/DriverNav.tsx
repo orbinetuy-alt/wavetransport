@@ -12,10 +12,10 @@ import {
 } from "lucide-react";
 
 const navItems = [
-  { label: "Inicio",         href: "/driver",             icon: LayoutDashboard },
-  { label: "Mis viajes",     href: "/driver/trips",       icon: Car },
-  { label: "Liquidaciones",  href: "/driver/settlements", icon: CreditCard },
-  { label: "Mi cuenta",      href: "/driver/settings",    icon: Settings },
+  { label: "Início",         href: "/driver",             icon: LayoutDashboard },
+  { label: "As minhas viagens", href: "/driver/trips",     icon: Car },
+  { label: "Liquidações",    href: "/driver/settlements", icon: CreditCard },
+  { label: "A minha conta",  href: "/driver/settings",    icon: Settings },
 ];
 
 export function DriverNav() {
