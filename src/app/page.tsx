@@ -5,6 +5,7 @@ import { Navbar } from "@/components/landing/Navbar";
 import { HeroSection } from "@/components/landing/HeroSection";
 import { ServicesSection } from "@/components/landing/ServicesSection";
 import { HowItWorksSection } from "@/components/landing/HowItWorksSection";
+import { ToursSection } from "@/components/landing/ToursSection";
 
 export default async function Home() {
   const { userId } = await auth();
@@ -21,6 +22,7 @@ export default async function Home() {
       <HeroSection />
       <ServicesSection />
       <HowItWorksSection />
+      <ToursSection />
     </main>
   );
 }
