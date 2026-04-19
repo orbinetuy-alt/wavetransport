@@ -1,42 +1,60 @@
 "use client";
 
-import { Plane, MapPin, Compass, Briefcase } from "lucide-react";
+import { Plane, Briefcase, MapPin, Clock, Compass, Star } from "lucide-react";
 
 const SERVICES = [
   {
     icon: Plane,
-    label: "Transfers Aeroporto",
+    label: "Transfer Aeroporto",
     description:
-      "Chegadas e partidas com pontualidade garantida. Seguimos o seu voo em tempo real — sem surpresas.",
+      "Chegadas e partidas do Aeroporto de Lisboa com acompanhamento total. Monitorização de voo em tempo real, meet & greet no terminal e assistência com bagagem. Disponível 24h, todos os dias.",
     accent: "#0e81b8",
     bg: "#e8f4fc",
     tag: "Mais popular",
   },
   {
-    icon: MapPin,
-    label: "Transfers Personalizados",
+    icon: Briefcase,
+    label: "Transfer Executivo & Corporativo",
     description:
-      "Hotel, evento, reunião ou consulta. Definimos o percurso à sua medida, com total flexibilidade.",
+      "Transporte dedicado para executivos e equipas empresariais. Motoristas bilíngues (PT/EN), viaturas de alta gama, gestão de contas e faturação mensal.",
+    accent: "#0e4f8a",
+    bg: "#ddeaf8",
+    tag: null,
+  },
+  {
+    icon: MapPin,
+    label: "Transfer Ponto a Ponto",
+    description:
+      "Viagens privadas de longa distância entre cidades, hotéis, aeroportos, portos e estações. Preço fixo sem surpresas, em todo o território português.",
     accent: "#0d5c8a",
     bg: "#e0eef8",
     tag: null,
   },
   {
-    icon: Compass,
-    label: "Passeios & Tours Privados",
+    icon: Clock,
+    label: "Chauffeur à Disposição",
     description:
-      "Descubra Lisboa e arredores ao seu ritmo, com um condutor local que conhece cada detalhe.",
+      "Viatura com motorista dedicado pelo tempo que precisar. Ideal para dias com múltiplos compromissos ou eventos. Itinerário ajustado em tempo real.",
+    accent: "#0e81b8",
+    bg: "#e8f4fc",
+    tag: null,
+  },
+  {
+    icon: Compass,
+    label: "Tours Privados em Portugal",
+    description:
+      "Experiências exclusivas e personalizadas: Lisboa, Sintra & Cascais, Alentejo & Vinhos. Roteiros à medida, com total flexibilidade de horário.",
     accent: "#0891b2",
     bg: "#e0f4fb",
     tag: null,
   },
   {
-    icon: Briefcase,
-    label: "Serviços Corporativos",
+    icon: Star,
+    label: "Eventos & Ocasiões Especiais",
     description:
-      "Soluções de mobilidade para empresas: executivos, delegações e eventos com faturação dedicada.",
-    accent: "#0e4f8a",
-    bg: "#ddeaf8",
+      "Transporte dedicado para casamentos, jantares de gala e eventos privados. Apresentação impecável, total discrição e um serviço adaptado a cada ocasião.",
+    accent: "#0a6a9a",
+    bg: "#e0eef7",
     tag: null,
   },
 ];
@@ -91,7 +109,7 @@ export function ServicesSection() {
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(230px, 1fr))",
+            gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
             gap: 20,
           }}
         >
