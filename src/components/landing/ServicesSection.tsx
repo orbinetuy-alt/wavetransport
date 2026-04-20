@@ -20,13 +20,13 @@ const SERVICES = [
   {
     label: "Transfer Ponto a Ponto",
     tag: null,
-    image: "/transfer-ponto-a-ponto.jpg",
+    image: "/transfer-ponto-a-ponto.jpeg",
     href: "/servicos/transfer-ponto-a-ponto",
   },
   {
     label: "Chauffeur à Disposição",
     tag: null,
-    image: "/chauffeur-disposicao.jpg",
+    image: "/chauffeur-disposicao.jpeg",
     href: "/servicos/chauffeur-disposicao",
   },
   {
