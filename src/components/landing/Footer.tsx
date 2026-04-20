@@ -25,15 +25,32 @@ export function Footer() {
 
   return (
     <footer
-      style={{
-        backgroundColor: "#0a2d52",
-        borderTop: "1px solid rgba(255,255,255,0.08)",
-      }}
+      className="relative overflow-hidden"
+      style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}
     >
+      {/* Background image + gradient overlay */}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          backgroundImage: "url('/footer.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          zIndex: 0,
+        }}
+      />
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          background: "linear-gradient(180deg, rgba(8,28,52,0.92) 0%, rgba(10,45,82,0.96) 60%, rgba(5,18,38,0.98) 100%)",
+          zIndex: 1,
+        }}
+      />
       {/* Main footer content */}
       <div
         className="max-w-6xl mx-auto px-6"
-        style={{ paddingTop: 64, paddingBottom: 48 }}
+        style={{ paddingTop: 64, paddingBottom: 48, position: "relative", zIndex: 2 }}
       >
         <div
           style={{
@@ -47,9 +64,10 @@ export function Footer() {
             <Image
               src="/logo.png"
               alt="Wave Transport"
-              width={148}
-              height={48}
-              className="h-10 w-auto brightness-0 invert"
+              width={120}
+              height={38}
+              style={{ height: 38, width: "auto", maxWidth: 120 }}
+              className="brightness-0 invert"
             />
             <p style={{ color: "rgba(255,255,255,0.55)", fontSize: 13, lineHeight: 1.7 }}>
               Transporte executivo e experiências privadas em Portugal. Conforto, pontualidade e um serviço altamente personalizado.
@@ -213,7 +231,7 @@ export function Footer() {
 
       {/* Bottom bar */}
       <div
-        style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}
+        style={{ borderTop: "1px solid rgba(255,255,255,0.08)", position: "relative", zIndex: 2 }}
       >
         <div
           className="max-w-6xl mx-auto px-6 flex flex-wrap items-center justify-between gap-4"
