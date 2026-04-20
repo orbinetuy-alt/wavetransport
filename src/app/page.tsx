@@ -7,6 +7,8 @@ import { ServicesSection } from "@/components/landing/ServicesSection";
 import { HowItWorksSection } from "@/components/landing/HowItWorksSection";
 import { ToursSection } from "@/components/landing/ToursSection";
 import { WhyWaveSection } from "@/components/landing/WhyWaveSection";
+import { ContactoSection } from "@/components/landing/ContactoSection";
+import { Footer } from "@/components/landing/Footer";
 
 export default async function Home() {
   const { userId } = await auth();
@@ -25,6 +27,8 @@ export default async function Home() {
       <HowItWorksSection />
       <ToursSection />
       <WhyWaveSection />
+      <ContactoSection />
+      <Footer />
     </main>
   );
 }
