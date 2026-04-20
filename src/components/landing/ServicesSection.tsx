@@ -1,173 +1,268 @@
 "use client";
 
-import { Plane, Briefcase, MapPin, Clock, Compass, Star } from "lucide-react";
+import { useRef } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import Link from "next/link";
 
 const SERVICES = [
   {
-    icon: Plane,
     label: "Transfer Aeroporto",
-    description:
-      "Chegadas e partidas do Aeroporto de Lisboa com acompanhamento total. Monitorização de voo em tempo real, meet & greet no terminal e assistência com bagagem. Disponível 24h, todos os dias.",
-    accent: "#0e81b8",
-    bg: "#e8f4fc",
     tag: "Mais popular",
+    image: "/transfer-aeroporto.jpg",
+    href: "/servicos/transfer-aeroporto",
   },
   {
-    icon: Briefcase,
     label: "Transfer Executivo & Corporativo",
-    description:
-      "Transporte dedicado para executivos e equipas empresariais. Motoristas bilíngues (PT/EN), viaturas de alta gama, gestão de contas e faturação mensal.",
-    accent: "#0e4f8a",
-    bg: "#ddeaf8",
     tag: null,
+    image: "/transfer-executivo.jpg",
+    href: "/servicos/transfer-executivo",
   },
   {
-    icon: MapPin,
     label: "Transfer Ponto a Ponto",
-    description:
-      "Viagens privadas de longa distância entre cidades, hotéis, aeroportos, portos e estações. Preço fixo sem surpresas, em todo o território português.",
-    accent: "#0d5c8a",
-    bg: "#e0eef8",
     tag: null,
+    image: "/transfer-ponto-a-ponto.jpg",
+    href: "/servicos/transfer-ponto-a-ponto",
   },
   {
-    icon: Clock,
     label: "Chauffeur à Disposição",
-    description:
-      "Viatura com motorista dedicado pelo tempo que precisar. Ideal para dias com múltiplos compromissos ou eventos. Itinerário ajustado em tempo real.",
-    accent: "#0e81b8",
-    bg: "#e8f4fc",
     tag: null,
+    image: "/chauffeur-disposicao.jpg",
+    href: "/servicos/chauffeur-disposicao",
   },
   {
-    icon: Compass,
     label: "Tours Privados em Portugal",
-    description:
-      "Experiências exclusivas e personalizadas: Lisboa, Sintra & Cascais, Alentejo & Vinhos. Roteiros à medida, com total flexibilidade de horário.",
-    accent: "#0891b2",
-    bg: "#e0f4fb",
     tag: null,
+    image: "/tours-privados.jpg",
+    href: "/servicos/tours-privados",
   },
   {
-    icon: Star,
     label: "Eventos & Ocasiões Especiais",
-    description:
-      "Transporte dedicado para casamentos, jantares de gala e eventos privados. Apresentação impecável, total discrição e um serviço adaptado a cada ocasião.",
-    accent: "#0a6a9a",
-    bg: "#e0eef7",
     tag: null,
+    image: "/eventos-especiais.jpg",
+    href: "/servicos/eventos-especiais",
   },
 ];
 
+const CARD_WIDTH = 340;
+const CARD_GAP = 20;
+
 export function ServicesSection() {
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  function scroll(dir: "left" | "right") {
+    if (!scrollRef.current) return;
+    scrollRef.current.scrollBy({
+      left: dir === "right" ? CARD_WIDTH + CARD_GAP : -(CARD_WIDTH + CARD_GAP),
+      behavior: "smooth",
+    });
+  }
+
   return (
     <section
       id="servicos"
-      className="relative overflow-hidden"
-      style={{ backgroundColor: "#f0f7ff", paddingTop: 100, paddingBottom: 100 }}
+      style={{ backgroundColor: "#f8fafc", paddingTop: 100, paddingBottom: 100 }}
     >
-      {/* Soft wave top */}
-      <div
-        className="pointer-events-none absolute inset-x-0 top-0"
-        style={{
-          height: 80,
-          background: "linear-gradient(to bottom, rgba(14,81,140,0.12) 0%, transparent 100%)",
-        }}
-      />
-
-      <div className="relative z-10 max-w-6xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-6">
 
         {/* Header */}
-        <div className="text-center mb-14">
-          <span
-            className="inline-block text-xs font-bold uppercase mb-4 px-3 py-1 rounded-full"
-            style={{
-              color: "#0e81b8",
-              backgroundColor: "rgba(14,129,184,0.10)",
-              border: "1px solid rgba(14,129,184,0.25)",
-              letterSpacing: "0.18em",
-            }}
-          >
-            Os nossos serviços
-          </span>
-          <h2
-            className="font-extrabold"
-            style={{ color: "#0a2d52", fontSize: "clamp(2rem, 5vw, 3rem)", lineHeight: 1.15 }}
-          >
-            Mobilidade premium,<br />
-            <span style={{ color: "#0e81b8" }}>para cada ocasião.</span>
-          </h2>
-          <p
-            className="mt-4 text-base max-w-xl mx-auto"
-            style={{ color: "#4a6a8a" }}
-          >
-            Seja qual for o destino ou o motivo, garantimos uma experiência de transporte impecável.
-          </p>
-        </div>
-
-        {/* Cards */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-            gap: 20,
-          }}
-        >
-          {SERVICES.map(({ icon: Icon, label, description, accent, bg, tag }) => (
-            <div
-              key={label}
-              className="relative flex flex-col gap-4 cursor-default rounded-2xl p-6"
+        <div className="flex items-end justify-between mb-10 flex-wrap gap-4">
+          <div>
+            <span
+              className="inline-block text-xs font-bold uppercase mb-3 px-3 py-1 rounded-full"
               style={{
-                backgroundColor: "#ffffff",
-                border: "1px solid rgba(14,129,184,0.12)",
-                boxShadow: "0 2px 16px rgba(14,81,140,0.07)",
-                transition: "transform 0.25s ease, box-shadow 0.25s ease",
-              }}
-              onMouseEnter={(e) => {
-                const el = e.currentTarget;
-                el.style.transform = "translateY(-5px)";
-                el.style.boxShadow = `0 16px 40px rgba(14,81,140,0.15)`;
-              }}
-              onMouseLeave={(e) => {
-                const el = e.currentTarget;
-                el.style.transform = "translateY(0)";
-                el.style.boxShadow = "0 2px 16px rgba(14,81,140,0.07)";
+                color: "#0e81b8",
+                backgroundColor: "rgba(14,129,184,0.10)",
+                border: "1px solid rgba(14,129,184,0.25)",
+                letterSpacing: "0.18em",
               }}
             >
+              Os nossos serviços
+            </span>
+            <h2
+              className="font-extrabold"
+              style={{ color: "#0a2d52", fontSize: "clamp(1.8rem, 4vw, 2.8rem)", lineHeight: 1.15 }}
+            >
+              Mobilidade premium,<br />
+              <span style={{ color: "#0e81b8" }}>para cada ocasião.</span>
+            </h2>
+          </div>
+
+          {/* Arrow controls */}
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => scroll("left")}
+              aria-label="Anterior"
+              className="flex items-center justify-center rounded-full"
+              style={{
+                width: 44,
+                height: 44,
+                backgroundColor: "#ffffff",
+                border: "1px solid #dde3ea",
+                cursor: "pointer",
+                boxShadow: "0 2px 8px rgba(10,45,82,0.08)",
+                transition: "background-color 0.2s, border-color 0.2s",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = "#0a2d52";
+                e.currentTarget.style.borderColor = "#0a2d52";
+                (e.currentTarget.querySelector("svg") as SVGElement).style.color = "#ffffff";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = "#ffffff";
+                e.currentTarget.style.borderColor = "#dde3ea";
+                (e.currentTarget.querySelector("svg") as SVGElement).style.color = "#0a2d52";
+              }}
+            >
+              <ChevronLeft size={20} style={{ color: "#0a2d52", transition: "color 0.2s" }} />
+            </button>
+            <button
+              onClick={() => scroll("right")}
+              aria-label="Próximo"
+              className="flex items-center justify-center rounded-full"
+              style={{
+                width: 44,
+                height: 44,
+                backgroundColor: "#0a2d52",
+                border: "1px solid #0a2d52",
+                cursor: "pointer",
+                boxShadow: "0 2px 8px rgba(10,45,82,0.18)",
+                transition: "background-color 0.2s",
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = "#0e81b8"; e.currentTarget.style.borderColor = "#0e81b8"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = "#0a2d52"; e.currentTarget.style.borderColor = "#0a2d52"; }}
+            >
+              <ChevronRight size={20} style={{ color: "#ffffff" }} />
+            </button>
+          </div>
+        </div>
+
+        {/* Carousel */}
+        <div
+          ref={scrollRef}
+          className="flex"
+          style={{
+            gap: CARD_GAP,
+            overflowX: "auto",
+            scrollSnapType: "x mandatory",
+            scrollbarWidth: "none",
+            msOverflowStyle: "none",
+            paddingBottom: 8,
+          }}
+        >
+          {SERVICES.map(({ label, tag, image, href }) => (
+            <Link
+              key={label}
+              href={href}
+              style={{
+                flexShrink: 0,
+                width: CARD_WIDTH,
+                height: 420,
+                borderRadius: 20,
+                overflow: "hidden",
+                scrollSnapAlign: "start",
+                display: "block",
+                textDecoration: "none",
+                position: "relative",
+              }}
+              onMouseEnter={(e) => {
+                const img = e.currentTarget.querySelector(".card-image") as HTMLElement;
+                if (img) img.style.transform = "scale(1.06)";
+              }}
+              onMouseLeave={(e) => {
+                const img = e.currentTarget.querySelector(".card-image") as HTMLElement;
+                if (img) img.style.transform = "scale(1)";
+              }}
+            >
+              {/* Background image */}
+              <div
+                className="card-image"
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  backgroundImage: `url(${image})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                  transition: "transform 0.5s ease",
+                }}
+              />
+
+              {/* Gradient overlay */}
+              <div
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  background: "linear-gradient(to top, rgba(8,20,40,0.85) 0%, rgba(8,20,40,0.3) 50%, transparent 100%)",
+                }}
+              />
+
+              {/* Tag */}
               {tag && (
-                <span
-                  className="absolute top-4 right-4 font-bold uppercase rounded-full"
+                <div
                   style={{
-                    fontSize: "10px",
+                    position: "absolute",
+                    top: 16,
+                    left: 16,
+                    backgroundColor: "#0e81b8",
+                    color: "#ffffff",
+                    fontSize: 10,
+                    fontWeight: 700,
                     letterSpacing: "0.12em",
-                    padding: "2px 8px",
-                    backgroundColor: `${accent}18`,
-                    color: accent,
-                    border: `1px solid ${accent}44`,
+                    textTransform: "uppercase",
+                    padding: "4px 10px",
+                    borderRadius: 999,
                   }}
                 >
                   {tag}
-                </span>
+                </div>
               )}
 
-              {/* Icon */}
+              {/* Bottom content */}
               <div
-                className="flex items-center justify-center rounded-xl"
-                style={{ width: 52, height: 52, backgroundColor: bg }}
+                style={{
+                  position: "absolute",
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  padding: "24px 24px 28px",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 12,
+                }}
               >
-                <Icon size={24} style={{ color: accent }} strokeWidth={1.8} />
+                <h3
+                  style={{
+                    color: "#ffffff",
+                    fontSize: 22,
+                    fontWeight: 800,
+                    lineHeight: 1.2,
+                    margin: 0,
+                  }}
+                >
+                  {label}
+                </h3>
+                <div
+                  className="explore-btn"
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 6,
+                    color: "#ffffff",
+                    fontSize: 13,
+                    fontWeight: 600,
+                    backgroundColor: "rgba(255,255,255,0.15)",
+                    border: "1px solid rgba(255,255,255,0.3)",
+                    borderRadius: 999,
+                    padding: "7px 16px",
+                    width: "fit-content",
+                    backdropFilter: "blur(4px)",
+                    transition: "background-color 0.2s ease",
+                  }}
+                >
+                  Explorar
+                  <ChevronRight size={14} />
+                </div>
               </div>
-
-              <div className="flex flex-col gap-1.5 flex-1">
-                <h3 className="font-bold" style={{ color: "#0a2d52", fontSize: 16 }}>{label}</h3>
-                <p className="text-sm leading-relaxed" style={{ color: "#5a7a9a" }}>
-                  {description}
-                </p>
-              </div>
-
-              {/* Bottom colored bar */}
-              <div style={{ height: 3, borderRadius: 999, backgroundColor: accent, opacity: 0.6 }} />
-            </div>
+            </Link>
           ))}
         </div>
 
