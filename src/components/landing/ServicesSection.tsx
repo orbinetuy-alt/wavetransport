@@ -62,7 +62,7 @@ const SERVICES = [
 export function ServicesSection() {
   return (
     <section
-      id="servicios"
+      id="servicos"
       className="relative overflow-hidden"
       style={{ backgroundColor: "#f0f7ff", paddingTop: 100, paddingBottom: 100 }}
     >

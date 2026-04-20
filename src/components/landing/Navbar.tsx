@@ -6,9 +6,10 @@ import Link from "next/link";
 import { Menu, X } from "lucide-react";
 
 const NAV_LINKS = [
-  { label: "Serviços", href: "#servicios" },
+  { label: "Serviços", href: "#servicos" },
   { label: "Como funciona", href: "#como-funciona" },
-  { label: "Frota", href: "#flota" },
+  { label: "Tours", href: "#tours" },
+  { label: "Frota", href: "#frota" },
   { label: "Contacto", href: "#contacto" },
 ];
 
