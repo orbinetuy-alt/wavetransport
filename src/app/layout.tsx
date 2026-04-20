@@ -17,6 +17,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "WaveTransport",
   description: "Plataforma de reserva y gestión de viajes",
+  icons: {
+    icon: "/favicon.png",
+  },
 };
 
 export default function RootLayout({
