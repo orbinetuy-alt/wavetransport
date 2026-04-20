@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { MapPin, Clock, CheckCircle2 } from "lucide-react";
 
 const TOURS = [
@@ -16,15 +17,14 @@ const TOURS = [
       "Chiado & Baixa",
       "Paragens à escolha",
     ],
+    image: "tour-lisboa.webp",
     accent: "#0e81b8",
-    gradientFrom: "#0a2d52",
-    gradientTo: "#0e4f8a",
     badge: "Mais reservado",
   },
   {
     id: "sintra",
     title: "Sintra & Cascais",
-    subtitle: "Paláciosе mar numa só viagem",
+    subtitle: "Palácios e mar numa só viagem",
     duration: "Dia completo",
     description:
       "Um percurso icónico pela Serra de Sintra e pela costa de Cascais. Paisagens, história e arquitetura num único dia inesquecível.",
@@ -35,9 +35,8 @@ const TOURS = [
       "Cascais",
       "Cabo da Roca (opcional)",
     ],
-    accent: "#0d5c8a",
-    gradientFrom: "#0a3a60",
-    gradientTo: "#0d5c8a",
+    image: "tour-sintrajpg.jpg",
+    accent: "#7dd3f0",
     badge: null,
   },
   {
@@ -53,19 +52,20 @@ const TOURS = [
       "Prova de vinhos",
       "Almoço típico alentejano",
     ],
-    accent: "#7a5c2e",
-    gradientFrom: "#4a3010",
-    gradientTo: "#7a5c2e",
+    image: "tour-alentejo.jpg",
+    accent: "#f0c060",
     badge: null,
   },
 ];
 
 export function ToursSection() {
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
+
   return (
     <section
       id="tours"
       className="relative overflow-hidden"
-      style={{ backgroundColor: "#ffffff", paddingTop: 100, paddingBottom: 100 }}
+      style={{ backgroundColor: "#f8fafc", paddingTop: 100, paddingBottom: 100 }}
     >
       <div className="max-w-6xl mx-auto px-6">
 
@@ -102,7 +102,7 @@ export function ToursSection() {
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-            gap: 24,
+            gap: 28,
           }}
         >
           {TOURS.map((tour) => (
@@ -110,62 +110,87 @@ export function ToursSection() {
               key={tour.id}
               className="relative flex flex-col overflow-hidden rounded-2xl"
               style={{
-                boxShadow: "0 4px 24px rgba(10,45,82,0.10)",
+                boxShadow: hoveredId === tour.id
+                  ? "0 20px 48px rgba(10,45,82,0.22)"
+                  : "0 4px 24px rgba(10,45,82,0.10)",
                 border: "1px solid rgba(14,129,184,0.10)",
-                transition: "transform 0.25s ease, box-shadow 0.25s ease",
+                transform: hoveredId === tour.id ? "translateY(-6px)" : "translateY(0)",
+                transition: "transform 0.3s ease, box-shadow 0.3s ease",
+                backgroundColor: "#ffffff",
               }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = "translateY(-5px)";
-                e.currentTarget.style.boxShadow = "0 16px 40px rgba(10,45,82,0.18)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = "translateY(0)";
-                e.currentTarget.style.boxShadow = "0 4px 24px rgba(10,45,82,0.10)";
-              }}
+              onMouseEnter={() => setHoveredId(tour.id)}
+              onMouseLeave={() => setHoveredId(null)}
             >
-              {/* Colored header */}
-              <div
-                className="relative flex flex-col justify-end"
-                style={{
-                  background: `linear-gradient(135deg, ${tour.gradientFrom} 0%, ${tour.gradientTo} 100%)`,
-                  padding: "32px 28px 24px",
-                  minHeight: 160,
-                }}
-              >
+              {/* Image area */}
+              <div className="relative overflow-hidden" style={{ height: 230 }}>
+                <img
+                  src={`/${tour.image}`}
+                  alt={tour.title}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    objectPosition: "center",
+                    transform: hoveredId === tour.id ? "scale(1.07)" : "scale(1)",
+                    transition: "transform 0.5s ease",
+                    display: "block",
+                  }}
+                />
+                {/* Dark gradient overlay */}
+                <div
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    background: "linear-gradient(to top, rgba(5,20,40,0.82) 0%, rgba(5,20,40,0.35) 55%, transparent 100%)",
+                  }}
+                />
+
+                {/* Badge */}
                 {tour.badge && (
                   <span
-                    className="absolute top-4 right-4 font-bold uppercase rounded-full"
+                    className="absolute top-4 left-4 font-bold uppercase rounded-full"
                     style={{
                       fontSize: "10px",
                       letterSpacing: "0.12em",
-                      padding: "3px 10px",
-                      backgroundColor: "rgba(255,255,255,0.18)",
+                      padding: "4px 12px",
+                      backgroundColor: "#0e81b8",
                       color: "#ffffff",
-                      border: "1px solid rgba(255,255,255,0.35)",
                     }}
                   >
                     {tour.badge}
                   </span>
                 )}
 
-                <p className="text-xs font-semibold uppercase mb-1" style={{ color: "rgba(255,255,255,0.65)", letterSpacing: "0.14em" }}>
-                  {tour.subtitle}
-                </p>
-                <h3 className="font-extrabold text-white" style={{ fontSize: 24, lineHeight: 1.2 }}>
-                  {tour.title}
-                </h3>
-
-                {/* Duration pill */}
-                <div className="flex items-center gap-1.5 mt-3">
-                  <Clock size={13} style={{ color: "rgba(255,255,255,0.7)" }} />
-                  <span style={{ color: "rgba(255,255,255,0.8)", fontSize: 12, fontWeight: 500 }}>
-                    {tour.duration}
-                  </span>
+                {/* Text overlay at bottom of image */}
+                <div
+                  style={{
+                    position: "absolute",
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    padding: "0 24px 20px",
+                  }}
+                >
+                  <p
+                    className="text-xs font-semibold uppercase mb-1"
+                    style={{ color: "rgba(255,255,255,0.70)", letterSpacing: "0.14em" }}
+                  >
+                    {tour.subtitle}
+                  </p>
+                  <h3 className="font-extrabold text-white" style={{ fontSize: 22, lineHeight: 1.2 }}>
+                    {tour.title}
+                  </h3>
+                  <div className="flex items-center gap-1.5 mt-2">
+                    <Clock size={12} style={{ color: "rgba(255,255,255,0.65)" }} />
+                    <span style={{ color: "rgba(255,255,255,0.75)", fontSize: 12, fontWeight: 500 }}>
+                      {tour.duration}
+                    </span>
+                  </div>
                 </div>
               </div>
 
               {/* Body */}
-              <div className="flex flex-col flex-1 gap-4 p-6" style={{ backgroundColor: "#ffffff" }}>
+              <div className="flex flex-col flex-1 gap-4 p-6">
                 <p className="text-sm leading-relaxed" style={{ color: "#5a7a9a" }}>
                   {tour.description}
                 </p>
