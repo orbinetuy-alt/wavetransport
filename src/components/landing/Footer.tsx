@@ -33,7 +33,7 @@ export function Footer() {
         style={{
           position: "absolute",
           inset: 0,
-          backgroundImage: "url('/footer.png')",
+          backgroundImage: "url('/footer.jpg')",
           backgroundSize: "cover",
           backgroundPosition: "center",
           zIndex: 0,
