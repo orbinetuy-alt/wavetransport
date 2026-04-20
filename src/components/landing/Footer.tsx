@@ -43,7 +43,7 @@ export function Footer() {
         style={{
           position: "absolute",
           inset: 0,
-          background: "linear-gradient(180deg, rgba(8,28,52,0.92) 0%, rgba(10,45,82,0.96) 60%, rgba(5,18,38,0.98) 100%)",
+          background: "linear-gradient(180deg, rgba(8,28,52,0.72) 0%, rgba(10,45,82,0.78) 60%, rgba(5,18,38,0.88) 100%)",
           zIndex: 1,
         }}
       />
