@@ -31,21 +31,22 @@ export function HowItWorksSection() {
       className="relative overflow-hidden"
       style={{ backgroundColor: "#0d4a8a", paddingTop: 100, paddingBottom: 100 }}
     >
-      {/* Subtle pattern */}
+      {/* Background image */}
       <div
         className="pointer-events-none absolute inset-0"
         style={{
-          backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px)",
-          backgroundSize: "28px 28px",
+          backgroundImage: "url(/como-funciona.jpg)",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          opacity: 0.22,
         }}
       />
 
-      {/* Top glow */}
+      {/* Dark overlay gradient */}
       <div
-        className="pointer-events-none absolute inset-x-0 top-0"
+        className="pointer-events-none absolute inset-0"
         style={{
-          height: 200,
-          background: "radial-gradient(ellipse 60% 100% at 50% 0%, rgba(255,255,255,0.06) 0%, transparent 100%)",
+          background: "linear-gradient(to bottom, #0a2d52ee 0%, #0d4a8acc 40%, #0a2d52ee 100%)",
         }}
       />
 
