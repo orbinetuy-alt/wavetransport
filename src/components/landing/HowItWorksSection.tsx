@@ -38,15 +38,15 @@ export function HowItWorksSection() {
           backgroundImage: "url(/como-funciona.jpg)",
           backgroundSize: "cover",
           backgroundPosition: "center",
-          opacity: 0.22,
+          opacity: 0.45,
         }}
       />
 
-      {/* Dark overlay gradient */}
+      {/* Gradient overlay — dark top and bottom, transparent center */}
       <div
         className="pointer-events-none absolute inset-0"
         style={{
-          background: "linear-gradient(to bottom, #0a2d52ee 0%, #0d4a8acc 40%, #0a2d52ee 100%)",
+          background: "linear-gradient(to bottom, #0d4a8a 0%, transparent 35%, transparent 65%, #0d4a8a 100%)",
         }}
       />
 
