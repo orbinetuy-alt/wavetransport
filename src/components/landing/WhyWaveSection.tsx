@@ -46,29 +46,43 @@ export function WhyWaveSection() {
         paddingBottom: 100,
       }}
     >
-      {/* Decorative circles */}
-      <div
+      {/* Wave blob — left */}
+      <svg
         className="pointer-events-none absolute"
-        style={{
-          width: 500,
-          height: 500,
-          borderRadius: "50%",
-          background: "radial-gradient(circle, rgba(125,211,240,0.08) 0%, transparent 70%)",
-          top: -120,
-          right: -100,
-        }}
-      />
-      <div
+        style={{ top: 0, left: 0, height: "100%", width: "auto", opacity: 0.18 }}
+        viewBox="0 0 220 800"
+        preserveAspectRatio="xMinYMid meet"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M-60,0 C20,80 -30,160 30,260 C90,360 -20,420 20,520 C60,620 -40,700 -60,800 L-200,800 L-200,0 Z"
+          fill="white"
+        />
+        <path
+          d="M-20,0 C60,100 10,200 70,300 C130,400 20,460 60,560 C100,660 0,740 -20,800 L-200,800 L-200,0 Z"
+          fill="white"
+          opacity="0.5"
+        />
+      </svg>
+
+      {/* Wave blob — right */}
+      <svg
         className="pointer-events-none absolute"
-        style={{
-          width: 350,
-          height: 350,
-          borderRadius: "50%",
-          background: "radial-gradient(circle, rgba(14,129,184,0.12) 0%, transparent 70%)",
-          bottom: -80,
-          left: -60,
-        }}
-      />
+        style={{ top: 0, right: 0, height: "100%", width: "auto", opacity: 0.18 }}
+        viewBox="0 0 220 800"
+        preserveAspectRatio="xMaxYMid meet"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M280,0 C200,80 250,160 190,260 C130,360 240,420 200,520 C160,620 260,700 280,800 L420,800 L420,0 Z"
+          fill="white"
+        />
+        <path
+          d="M240,0 C160,100 210,200 150,300 C90,400 200,460 160,560 C120,660 220,740 240,800 L420,800 L420,0 Z"
+          fill="white"
+          opacity="0.5"
+        />
+      </svg>
 
       <div className="relative z-10 max-w-6xl mx-auto px-6">
 
