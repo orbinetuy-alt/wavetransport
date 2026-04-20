@@ -9,7 +9,7 @@ const NAV_LINKS = [
   { label: "Serviços", href: "#servicos" },
   { label: "Como funciona", href: "#como-funciona" },
   { label: "Tours", href: "#tours" },
-  { label: "Frota", href: "#frota" },
+  { label: "Porquê a Wave", href: "#porquewave" },
   { label: "Contacto", href: "#contacto" },
 ];
 
