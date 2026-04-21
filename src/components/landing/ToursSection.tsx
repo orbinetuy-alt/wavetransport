@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { MapPin, Clock, CheckCircle2 } from "lucide-react";
+import { Clock } from "lucide-react";
+import Link from "next/link";
 
 const TOURS = [
   {
@@ -108,110 +109,100 @@ export function ToursSection() {
           {TOURS.map((tour) => (
             <div
               key={tour.id}
-              className="relative flex flex-col overflow-hidden rounded-2xl"
+              className="relative overflow-hidden rounded-2xl"
               style={{
+                height: 420,
                 boxShadow: hoveredId === tour.id
-                  ? "0 20px 48px rgba(10,45,82,0.22)"
-                  : "0 4px 24px rgba(10,45,82,0.10)",
-                border: "1px solid rgba(14,129,184,0.10)",
+                  ? "0 24px 56px rgba(10,45,82,0.28)"
+                  : "0 6px 28px rgba(10,45,82,0.12)",
                 transform: hoveredId === tour.id ? "translateY(-6px)" : "translateY(0)",
                 transition: "transform 0.3s ease, box-shadow 0.3s ease",
-                backgroundColor: "#ffffff",
+                cursor: "pointer",
               }}
               onMouseEnter={() => setHoveredId(tour.id)}
               onMouseLeave={() => setHoveredId(null)}
             >
-              {/* Image area */}
-              <div className="relative overflow-hidden" style={{ height: 230 }}>
-                <img
-                  src={`/${tour.image}`}
-                  alt={tour.title}
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                    objectPosition: "center",
-                    transform: hoveredId === tour.id ? "scale(1.07)" : "scale(1)",
-                    transition: "transform 0.5s ease",
-                    display: "block",
-                  }}
-                />
-                {/* Dark gradient overlay */}
-                <div
-                  style={{
-                    position: "absolute",
-                    inset: 0,
-                    background: "linear-gradient(to top, rgba(5,20,40,0.82) 0%, rgba(5,20,40,0.35) 55%, transparent 100%)",
-                  }}
-                />
+              {/* Full-bleed image */}
+              <img
+                src={`/${tour.image}`}
+                alt={tour.title}
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  objectPosition: "center",
+                  transform: hoveredId === tour.id ? "scale(1.07)" : "scale(1)",
+                  transition: "transform 0.5s ease",
+                }}
+              />
 
-                {/* Badge */}
-                {tour.badge && (
-                  <span
-                    className="absolute top-4 left-4 font-bold uppercase rounded-full"
-                    style={{
-                      fontSize: "10px",
-                      letterSpacing: "0.12em",
-                      padding: "4px 12px",
-                      backgroundColor: "#0e81b8",
-                      color: "#ffffff",
-                    }}
-                  >
-                    {tour.badge}
-                  </span>
-                )}
+              {/* Gradient overlay — stronger at bottom */}
+              <div
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  background: "linear-gradient(to top, rgba(5,18,40,0.90) 0%, rgba(5,18,40,0.40) 50%, rgba(5,18,40,0.10) 100%)",
+                }}
+              />
 
-                {/* Text overlay at bottom of image */}
-                <div
+              {/* Badge */}
+              {tour.badge && (
+                <span
+                  className="absolute top-4 left-4 font-bold uppercase rounded-full"
                   style={{
-                    position: "absolute",
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
-                    padding: "0 24px 20px",
+                    fontSize: "10px",
+                    letterSpacing: "0.12em",
+                    padding: "4px 12px",
+                    backgroundColor: "#0e81b8",
+                    color: "#ffffff",
                   }}
                 >
-                  <p
-                    className="text-xs font-semibold uppercase mb-1"
-                    style={{ color: "rgba(255,255,255,0.70)", letterSpacing: "0.14em" }}
-                  >
-                    {tour.subtitle}
-                  </p>
-                  <h3 className="font-extrabold text-white" style={{ fontSize: 22, lineHeight: 1.2 }}>
-                    {tour.title}
-                  </h3>
-                  <div className="flex items-center gap-1.5 mt-2">
-                    <Clock size={12} style={{ color: "rgba(255,255,255,0.65)" }} />
-                    <span style={{ color: "rgba(255,255,255,0.75)", fontSize: 12, fontWeight: 500 }}>
-                      {tour.duration}
-                    </span>
-                  </div>
-                </div>
-              </div>
+                  {tour.badge}
+                </span>
+              )}
 
-              {/* Body */}
-              <div className="flex flex-col flex-1 gap-4 p-6">
-                <p className="text-sm leading-relaxed" style={{ color: "#5a7a9a" }}>
-                  {tour.description}
+              {/* Bottom content */}
+              <div
+                style={{
+                  position: "absolute",
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  padding: "0 28px 28px",
+                }}
+              >
+                <p
+                  className="text-xs font-semibold uppercase mb-1"
+                  style={{ color: "rgba(255,255,255,0.65)", letterSpacing: "0.14em" }}
+                >
+                  {tour.subtitle}
                 </p>
-
-                {/* Highlights */}
-                <div className="flex flex-col gap-2">
-                  {tour.highlights.map((item) => (
-                    <div key={item} className="flex items-center gap-2">
-                      <CheckCircle2 size={15} style={{ color: tour.accent, flexShrink: 0 }} />
-                      <span style={{ color: "#3a5a7a", fontSize: 13, fontWeight: 500 }}>
-                        {item}
-                      </span>
-                    </div>
-                  ))}
+                <h3 className="font-extrabold text-white mb-2" style={{ fontSize: 26, lineHeight: 1.2 }}>
+                  {tour.title}
+                </h3>
+                <div className="flex items-center gap-1.5 mb-5">
+                  <Clock size={12} style={{ color: "rgba(255,255,255,0.60)" }} />
+                  <span style={{ color: "rgba(255,255,255,0.70)", fontSize: 12, fontWeight: 500 }}>
+                    {tour.duration}
+                  </span>
                 </div>
 
-                {/* Footer row */}
-                <div className="mt-auto pt-4 flex items-center gap-2" style={{ borderTop: "1px solid #edf0f3" }}>
-                  <MapPin size={14} style={{ color: tour.accent }} />
-                  <span style={{ color: "#8aa0b8", fontSize: 12 }}>Portugal · Saída de Lisboa</span>
-                </div>
+                <Link
+                  href="#contacto"
+                  className="inline-flex items-center gap-2 rounded-xl font-bold text-sm transition-all"
+                  style={{
+                    backgroundColor: hoveredId === tour.id ? "#0e81b8" : "rgba(255,255,255,0.15)",
+                    backdropFilter: "blur(8px)",
+                    border: "1px solid rgba(255,255,255,0.30)",
+                    color: "#ffffff",
+                    padding: "10px 22px",
+                    transition: "background-color 0.25s ease",
+                  }}
+                >
+                  Reservar agora
+                </Link>
               </div>
             </div>
           ))}

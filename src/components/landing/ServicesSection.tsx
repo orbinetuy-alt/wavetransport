@@ -267,6 +267,15 @@ export function ServicesSection() {
         </div>
 
       </div>
+
+      {/* Gradient transition to next section */}
+      <div
+        className="absolute bottom-0 left-0 right-0 pointer-events-none"
+        style={{
+          height: 120,
+          background: "linear-gradient(to bottom, transparent 0%, #0d4a8a 100%)",
+        }}
+      />
     </section>
   );
 }

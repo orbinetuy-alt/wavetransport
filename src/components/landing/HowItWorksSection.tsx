@@ -42,11 +42,23 @@ export function HowItWorksSection() {
         }}
       />
 
-      {/* Gradient overlay — dark top and bottom, transparent center */}
+      {/* Gradient transition — top (from ServicesSection white) */}
       <div
-        className="pointer-events-none absolute inset-0"
+        className="pointer-events-none absolute top-0 left-0 right-0"
         style={{
-          background: "linear-gradient(to bottom, #0d4a8a 0%, transparent 35%, transparent 65%, #0d4a8a 100%)",
+          height: 100,
+          background: "linear-gradient(to bottom, #f8fafc 0%, transparent 100%)",
+          zIndex: 2,
+        }}
+      />
+
+      {/* Gradient transition — bottom (to ToursSection white) */}
+      <div
+        className="pointer-events-none absolute bottom-0 left-0 right-0"
+        style={{
+          height: 100,
+          background: "linear-gradient(to bottom, transparent 0%, #f8fafc 100%)",
+          zIndex: 2,
         }}
       />
 
