@@ -88,9 +88,9 @@ export function HowItWorksSection() {
 
         {/* Steps */}
         <div className="relative">
-          {/* Connecting line */}
+          {/* Connecting line — hidden on mobile */}
           <div
-            className="absolute"
+            className="hidden md:block absolute"
             style={{
               top: 40,
               left: "16.66%",
@@ -100,13 +100,7 @@ export function HowItWorksSection() {
             }}
           />
 
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(3, 1fr)",
-              gap: 40,
-            }}
-          >
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
             {STEPS.map(({ number, icon: Icon, title, description }) => (
               <div key={number} className="flex flex-col items-center text-center gap-5">
 

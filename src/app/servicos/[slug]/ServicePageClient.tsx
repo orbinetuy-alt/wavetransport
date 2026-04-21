@@ -36,7 +36,7 @@ export function ServicePageClient({ service }: { service: ServiceData }) {
           className="absolute flex items-center gap-2"
           style={{
             top: 24,
-            left: 32,
+            left: 16,
             color: "rgba(255,255,255,0.85)",
             fontSize: 13,
             fontWeight: 600,
@@ -53,14 +53,14 @@ export function ServicePageClient({ service }: { service: ServiceData }) {
         </Link>
 
         {/* Title */}
-        <div className="relative z-10 max-w-5xl mx-auto px-8 pb-16 w-full">
+        <div className="relative z-10 max-w-5xl mx-auto px-4 md:px-8 pb-12 md:pb-16 w-full">
           <h1
             className="font-extrabold text-white"
-            style={{ fontSize: "clamp(2.2rem, 5vw, 3.8rem)", lineHeight: 1.08 }}
+            style={{ fontSize: "clamp(1.8rem, 5vw, 3.8rem)", lineHeight: 1.08 }}
           >
             {service.label}
           </h1>
-          <p style={{ color: "rgba(255,255,255,0.72)", fontSize: 19, marginTop: 12 }}>
+          <p style={{ color: "rgba(255,255,255,0.72)", fontSize: "clamp(14px, 3vw, 19px)", marginTop: 12 }}>
             {service.tagline}
           </p>
         </div>
@@ -95,13 +95,7 @@ export function ServicePageClient({ service }: { service: ServiceData }) {
           >
             O que está incluído
           </h2>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(3, 1fr)",
-              gap: 20,
-            }}
-          >
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
             {service.includes.map((item) => (
               <div
                 key={item}
@@ -152,13 +146,14 @@ export function ServicePageClient({ service }: { service: ServiceData }) {
         style={{
           backgroundColor: "#0a2d52",
           borderTop: "1px solid rgba(255,255,255,0.10)",
-          padding: "14px 32px",
+          padding: "12px 16px",
           boxShadow: "0 -4px 24px rgba(10,45,82,0.25)",
         }}
       >
-        <div className="max-w-5xl mx-auto flex items-center justify-between gap-4">
-          <div>
+        <div className="max-w-5xl mx-auto flex items-center justify-between gap-3">
+          <div className="min-w-0 flex-1">
             <p
+              className="hidden sm:block"
               style={{
                 color: "rgba(255,255,255,0.5)",
                 fontSize: 11,
@@ -169,7 +164,7 @@ export function ServicePageClient({ service }: { service: ServiceData }) {
             >
               Serviço
             </p>
-            <p style={{ color: "#ffffff", fontSize: 17, fontWeight: 700, lineHeight: 1.2 }}>
+            <p className="truncate" style={{ color: "#ffffff", fontSize: 15, fontWeight: 700, lineHeight: 1.2 }}>
               {service.label}
             </p>
           </div>
@@ -179,11 +174,12 @@ export function ServicePageClient({ service }: { service: ServiceData }) {
               backgroundColor: "#0e81b8",
               color: "#ffffff",
               fontWeight: 700,
-              fontSize: 15,
-              padding: "13px 32px",
+              fontSize: 14,
+              padding: "12px 20px",
               borderRadius: 12,
               textDecoration: "none",
               whiteSpace: "nowrap",
+              flexShrink: 0,
             }}
             onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#0b6d9e")}
             onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#0e81b8")}

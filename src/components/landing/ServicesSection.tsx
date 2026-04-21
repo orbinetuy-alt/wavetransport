@@ -155,7 +155,7 @@ export function ServicesSection() {
               href={href}
               style={{
                 flexShrink: 0,
-                width: CARD_WIDTH,
+                width: "min(340px, calc(85vw))",
                 height: 420,
                 borderRadius: 20,
                 overflow: "hidden",

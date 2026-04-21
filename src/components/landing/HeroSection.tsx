@@ -89,9 +89,7 @@ export function HeroSection() {
       />
 
       {/* Content */}
-      <div className="relative z-10 w-full max-w-6xl mx-auto px-6 pt-28 pb-16"
-        style={{ display: "grid", gridTemplateColumns: "1fr 420px", gap: 60, alignItems: "center" }}
-      >
+      <div className="relative z-10 w-full max-w-6xl mx-auto px-6 pt-24 md:pt-28 pb-16 grid grid-cols-1 md:grid-cols-[1fr_420px] gap-10 md:gap-15 items-center">
         {/* ── LEFT: headline + trust ── */}
         <div>
           {/* Badge */}
@@ -103,7 +101,7 @@ export function HeroSection() {
           </div>
 
           {/* Headline */}
-          <h1 className="text-5xl md:text-6xl font-extrabold text-white leading-tight tracking-tight mb-6">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white leading-tight tracking-tight mb-6">
             O seu transfer<br />
             <CyclingText /><br />
             com especialistas.
@@ -114,7 +112,7 @@ export function HeroSection() {
           </p>
 
           {/* Trust signals */}
-          <div className="flex items-center gap-6 flex-wrap">
+          <div className="flex items-center gap-4 md:gap-6 flex-wrap">
             <div className="text-center">
               <p className="text-2xl font-extrabold text-white">500+</p>
               <p className="text-xs mt-0.5" style={{ color: "rgba(255,255,255,0.5)" }}>viagens concluídas</p>
