@@ -45,9 +45,9 @@ export function ContactoSection() {
     width: "100%",
     padding: "11px 14px",
     borderRadius: 10,
-    border: "1px solid #dde3ea",
-    backgroundColor: "#f8fafc",
-    color: "#0a2d52",
+    border: "1px solid rgba(255,255,255,0.25)",
+    backgroundColor: "rgba(255,255,255,0.12)",
+    color: "#ffffff",
     fontSize: 14,
     outline: "none",
     transition: "border-color 0.2s ease",
@@ -187,9 +187,9 @@ export function ContactoSection() {
           <div
             className="rounded-2xl p-8"
             style={{
-              backgroundColor: "#ffffff",
-              border: "1px solid rgba(14,129,184,0.12)",
-              boxShadow: "0 4px 24px rgba(10,45,82,0.08)",
+              background: "linear-gradient(135deg, #0e81b8 0%, #0a2d52 100%)",
+              border: "1px solid rgba(255,255,255,0.15)",
+              boxShadow: "0 8px 40px rgba(10,45,82,0.25)",
             }}
           >
             {sent ? (
@@ -215,13 +215,13 @@ export function ContactoSection() {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-                <h3 className="font-bold mb-1" style={{ color: "#0a2d52", fontSize: 18 }}>
+                <h3 className="font-bold mb-1" style={{ color: "#ffffff", fontSize: 18 }}>
                   Pedido de orçamento
                 </h3>
 
                 {/* Nome */}
                 <div className="flex flex-col gap-1.5">
-                  <label style={{ color: "#4a6a8a", fontSize: 13, fontWeight: 500 }}>Nome completo *</label>
+                  <label style={{ color: "rgba(255,255,255,0.8)", fontSize: 13, fontWeight: 500 }}>Nome completo *</label>
                   <input
                     name="nome"
                     value={form.nome}
@@ -236,7 +236,7 @@ export function ContactoSection() {
 
                 {/* Email */}
                 <div className="flex flex-col gap-1.5">
-                  <label style={{ color: "#4a6a8a", fontSize: 13, fontWeight: 500 }}>Email *</label>
+                  <label style={{ color: "rgba(255,255,255,0.8)", fontSize: 13, fontWeight: 500 }}>Email *</label>
                   <input
                     type="email"
                     name="email"
@@ -252,7 +252,7 @@ export function ContactoSection() {
 
                 {/* Serviço */}
                 <div className="flex flex-col gap-1.5">
-                  <label style={{ color: "#4a6a8a", fontSize: 13, fontWeight: 500 }}>Tipo de serviço *</label>
+                  <label style={{ color: "rgba(255,255,255,0.8)", fontSize: 13, fontWeight: 500 }}>Tipo de serviço *</label>
                   <select
                     name="servico"
                     value={form.servico}
@@ -271,7 +271,7 @@ export function ContactoSection() {
 
                 {/* Data */}
                 <div className="flex flex-col gap-1.5">
-                  <label style={{ color: "#4a6a8a", fontSize: 13, fontWeight: 500 }}>Data prevista</label>
+                  <label style={{ color: "rgba(255,255,255,0.8)", fontSize: 13, fontWeight: 500 }}>Data prevista</label>
                   <input
                     type="date"
                     name="data"
@@ -285,7 +285,7 @@ export function ContactoSection() {
 
                 {/* Mensagem */}
                 <div className="flex flex-col gap-1.5">
-                  <label style={{ color: "#4a6a8a", fontSize: 13, fontWeight: 500 }}>Mensagem</label>
+                  <label style={{ color: "rgba(255,255,255,0.8)", fontSize: 13, fontWeight: 500 }}>Mensagem</label>
                   <textarea
                     name="mensagem"
                     value={form.mensagem}
@@ -303,16 +303,18 @@ export function ContactoSection() {
                   disabled={loading}
                   className="flex items-center justify-center gap-2 rounded-xl font-semibold text-white"
                   style={{
-                    backgroundColor: loading ? "#6a9ab8" : "#0a2d52",
+                    backgroundColor: loading ? "rgba(255,255,255,0.3)" : "#ffffff",
+                    color: loading ? "#ffffff" : "#0a2d52",
                     padding: "13px 20px",
                     fontSize: 15,
                     border: "none",
                     cursor: loading ? "default" : "pointer",
                     transition: "background-color 0.2s ease, transform 0.15s ease",
                     marginTop: 4,
+                    fontWeight: 700,
                   }}
-                  onMouseEnter={(e) => { if (!loading) e.currentTarget.style.backgroundColor = "#0e4f8a"; }}
-                  onMouseLeave={(e) => { if (!loading) e.currentTarget.style.backgroundColor = "#0a2d52"; }}
+                  onMouseEnter={(e) => { if (!loading) { e.currentTarget.style.backgroundColor = "rgba(255,255,255,0.85)"; } }}
+                  onMouseLeave={(e) => { if (!loading) { e.currentTarget.style.backgroundColor = "#ffffff"; } }}
                 >
                   <Send size={16} />
                   {loading ? "A enviar..." : "Enviar pedido"}

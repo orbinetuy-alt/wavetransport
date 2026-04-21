@@ -81,7 +81,7 @@ export function Navbar() {
             Entrar
           </Link>
           <button
-            onClick={() => handleNavClick("#reservar")}
+            onClick={() => handleNavClick("#contacto")}
             className="px-5 py-2.5 rounded-xl text-sm font-semibold text-white transition-all duration-200 hover:scale-105 active:scale-100 cursor-pointer"
             style={{
               backgroundColor: "#111827",
@@ -130,7 +130,7 @@ export function Navbar() {
               Entrar
             </Link>
             <button
-              onClick={() => handleNavClick("#reservar")}
+              onClick={() => handleNavClick("#contacto")}
               className="px-4 py-3.5 rounded-xl text-sm font-semibold text-center text-white cursor-pointer"
               style={{ backgroundColor: "#111827" }}
             >

@@ -26,25 +26,24 @@ export function Footer() {
   return (
     <footer
       className="relative overflow-hidden"
-      style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}
+      style={{ backgroundColor: "#0d4a8a", borderTop: "1px solid rgba(255,255,255,0.08)" }}
     >
-      {/* Background image + gradient overlay */}
+      {/* Background image */}
       <div
+        className="pointer-events-none absolute inset-0"
         style={{
-          position: "absolute",
-          inset: 0,
           backgroundImage: "url('/footer.jpg')",
           backgroundSize: "cover",
           backgroundPosition: "center",
-          zIndex: 0,
+          opacity: 0.35,
         }}
       />
+
+      {/* Gradient — dark top and bottom, transparent center */}
       <div
+        className="pointer-events-none absolute inset-0"
         style={{
-          position: "absolute",
-          inset: 0,
-          background: "linear-gradient(180deg, rgba(8,28,52,0.72) 0%, rgba(10,45,82,0.78) 60%, rgba(5,18,38,0.88) 100%)",
-          zIndex: 1,
+          background: "linear-gradient(to bottom, #0d4a8a 0%, transparent 30%, transparent 70%, #0d4a8a 100%)",
         }}
       />
       {/* Main footer content */}

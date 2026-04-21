@@ -2,9 +2,9 @@
 
 import { CheckCircle2, ArrowLeft } from "lucide-react";
 import Link from "next/link";
-import { ServiceData } from "./data";
+import { TourData } from "./data";
 
-export function ServicePageClient({ service }: { service: ServiceData }) {
+export function TourPageClient({ tour }: { tour: TourData }) {
   return (
     <>
       {/* ── HERO ── */}
@@ -16,7 +16,7 @@ export function ServicePageClient({ service }: { service: ServiceData }) {
           style={{
             position: "absolute",
             inset: 0,
-            backgroundImage: `url(${service.image})`,
+            backgroundImage: `url(${tour.image})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
@@ -30,9 +30,8 @@ export function ServicePageClient({ service }: { service: ServiceData }) {
           }}
         />
 
-        {/* Back button */}
         <Link
-          href="/#servicos"
+          href="/#tours"
           className="absolute flex items-center gap-2"
           style={{
             top: 24,
@@ -52,16 +51,21 @@ export function ServicePageClient({ service }: { service: ServiceData }) {
           Voltar
         </Link>
 
-        {/* Title */}
         <div className="relative z-10 max-w-5xl mx-auto px-8 pb-16 w-full">
+          <p
+            className="text-xs font-bold uppercase mb-3"
+            style={{ color: "rgba(125,211,240,0.9)", letterSpacing: "0.18em" }}
+          >
+            Tour Privado · {tour.duration}
+          </p>
           <h1
             className="font-extrabold text-white"
             style={{ fontSize: "clamp(2.2rem, 5vw, 3.8rem)", lineHeight: 1.08 }}
           >
-            {service.label}
+            {tour.label}
           </h1>
           <p style={{ color: "rgba(255,255,255,0.72)", fontSize: 19, marginTop: 12 }}>
-            {service.tagline}
+            {tour.tagline}
           </p>
         </div>
       </section>
@@ -78,10 +82,10 @@ export function ServicePageClient({ service }: { service: ServiceData }) {
               letterSpacing: "0.18em",
             }}
           >
-            Sobre este serviço
+            Sobre este tour
           </span>
           <p className="leading-relaxed" style={{ color: "#4a6a8a", fontSize: 17, lineHeight: 1.85 }}>
-            {service.description}
+            {tour.description}
           </p>
         </div>
       </section>
@@ -102,7 +106,7 @@ export function ServicePageClient({ service }: { service: ServiceData }) {
               gap: 20,
             }}
           >
-            {service.includes.map((item) => (
+            {tour.includes.map((item) => (
               <div
                 key={item}
                 className="rounded-2xl p-6 flex flex-col gap-3"
@@ -138,7 +142,7 @@ export function ServicePageClient({ service }: { service: ServiceData }) {
                 Preços sob consulta
               </p>
               <p style={{ color: "#4a6a8a", fontSize: 14, lineHeight: 1.65, marginTop: 4 }}>
-                Cada serviço é adaptado às suas necessidades. Clique em{" "}
+                Cada tour é personalizado para o seu grupo. Clique em{" "}
                 <strong>Reservar agora</strong> e receba uma proposta clara e sem compromisso.
               </p>
             </div>
@@ -167,10 +171,10 @@ export function ServicePageClient({ service }: { service: ServiceData }) {
                 letterSpacing: "0.16em",
               }}
             >
-              Serviço
+              Tour Privado
             </p>
             <p style={{ color: "#ffffff", fontSize: 17, fontWeight: 700, lineHeight: 1.2 }}>
-              {service.label}
+              {tour.label}
             </p>
           </div>
           <Link

@@ -107,9 +107,10 @@ export function ToursSection() {
           }}
         >
           {TOURS.map((tour) => (
-            <div
+            <Link
               key={tour.id}
-              className="relative overflow-hidden rounded-2xl"
+              href={`/tours/${tour.id}`}
+              className="relative overflow-hidden rounded-2xl block"
               style={{
                 height: 420,
                 boxShadow: hoveredId === tour.id
@@ -118,6 +119,7 @@ export function ToursSection() {
                 transform: hoveredId === tour.id ? "translateY(-6px)" : "translateY(0)",
                 transition: "transform 0.3s ease, box-shadow 0.3s ease",
                 cursor: "pointer",
+                textDecoration: "none",
               }}
               onMouseEnter={() => setHoveredId(tour.id)}
               onMouseLeave={() => setHoveredId(null)}
@@ -189,8 +191,7 @@ export function ToursSection() {
                   </span>
                 </div>
 
-                <Link
-                  href="#contacto"
+                <span
                   className="inline-flex items-center gap-2 rounded-xl font-bold text-sm transition-all"
                   style={{
                     backgroundColor: hoveredId === tour.id ? "#0e81b8" : "rgba(255,255,255,0.15)",
@@ -201,10 +202,10 @@ export function ToursSection() {
                     transition: "background-color 0.25s ease",
                   }}
                 >
-                  Reservar agora
-                </Link>
+                  Ver tour
+                </span>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
 
