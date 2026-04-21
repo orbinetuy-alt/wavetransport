@@ -64,11 +64,11 @@ export function HeroSection() {
 
       {/* Background image */}
       <Image
-        src="/hero1.jpeg"
-        alt="WaveTransports — transporte premium"
+        src="/hero2.png"
+        alt="WaveTransports — transporte premium em Lisboa"
         fill
-        className="object-cover scale-105"
-        style={{ filter: "blur(1px)", objectPosition: "center 30%" }}
+        className="object-cover"
+        style={{ objectPosition: "center center" }}
         priority
       />
 
