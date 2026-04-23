@@ -108,8 +108,8 @@ export function ToursSection() {
   return (
     <section
       id="tours"
-      className="relative overflow-hidden"
-      style={{ backgroundColor: "#f8fafc", paddingTop: 100, paddingBottom: 100 }}
+      className="relative overflow-hidden py-16 md:py-24"
+      style={{ backgroundColor: "#f8fafc" }}
     >
       <div className="max-w-6xl mx-auto px-6">
 

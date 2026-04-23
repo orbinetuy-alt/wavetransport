@@ -20,7 +20,7 @@ const SERVICES = [
   {
     label: "Transfer Ponto a Ponto",
     tag: null,
-    image: "/transfer-ponto-a-ponto.jpeg",
+    image: "/transfer-ponto-a-ponto.jpg",
     href: "/servicos/transfer-ponto-a-ponto",
   },
   {
@@ -60,7 +60,8 @@ export function ServicesSection() {
   return (
     <section
       id="servicos"
-      style={{ backgroundColor: "#f8fafc", paddingTop: 100, paddingBottom: 100 }}
+      className="py-16 md:py-24"
+      style={{ backgroundColor: "#f8fafc" }}
     >
       <div className="max-w-7xl mx-auto px-6">
 

@@ -18,9 +18,14 @@ export function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
+    const onScroll = () => setScrolled((window.pageYOffset || document.documentElement.scrollTop) > 10);
+    onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("touchmove", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("touchmove", onScroll);
+    };
   }, []);
 
   useEffect(() => {
@@ -39,8 +44,8 @@ export function Navbar() {
     <header
       className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
       style={{
-        backgroundColor: "#ffffff",
-        borderBottom: scrolled ? "1px solid #e5e7eb" : "1px solid #f3f4f6",
+        backgroundColor: scrolled ? "#ffffff" : "transparent",
+        borderBottom: scrolled ? "1px solid #e5e7eb" : "1px solid transparent",
         boxShadow: scrolled ? "0 2px 16px rgba(0,0,0,0.07)" : "none",
       }}
     >
@@ -64,7 +69,11 @@ export function Navbar() {
             <li key={link.href}>
               <button
                 onClick={() => handleNavClick(link.href)}
-                className="px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200 cursor-pointer text-gray-500 hover:text-[#0e81b8] hover:underline underline-offset-4"
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200 cursor-pointer ${
+                  scrolled
+                    ? "text-gray-500 hover:text-brand-500 hover:underline underline-offset-4"
+                    : "text-white/90 hover:text-white"
+                }`}
               >
                 {link.label}
               </button>
@@ -76,7 +85,9 @@ export function Navbar() {
         <div className="hidden md:flex items-center gap-3">
           <Link
             href="/sign-in"
-            className="px-4 py-2 rounded-lg text-sm font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 transition-colors duration-200"
+            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200 ${
+              scrolled ? "text-gray-500 hover:text-gray-800 hover:bg-gray-100" : "text-white/80 hover:text-white"
+            }`}
           >
             Entrar
           </Link>
@@ -84,7 +95,9 @@ export function Navbar() {
             onClick={() => handleNavClick("#contacto")}
             className="px-5 py-2.5 rounded-xl text-sm font-semibold text-white transition-all duration-200 hover:scale-105 active:scale-100 cursor-pointer"
             style={{
-              backgroundColor: "#111827",
+              backgroundColor: scrolled ? "#111827" : "rgba(255,255,255,0.15)",
+              border: scrolled ? "none" : "1.5px solid rgba(255,255,255,0.6)",
+              backdropFilter: scrolled ? "none" : "blur(8px)",
             }}
           >
             Reservar agora
@@ -94,7 +107,8 @@ export function Navbar() {
         {/* Mobile hamburger */}
         <button
           onClick={() => setMenuOpen((v) => !v)}
-          className="md:hidden p-2 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors cursor-pointer"
+          className="md:hidden p-2 rounded-lg transition-colors cursor-pointer"
+          style={{ color: scrolled ? "#4b5563" : "#ffffff" }}
           aria-label="Toggle menu"
         >
           {menuOpen ? <X size={22} /> : <Menu size={22} />}
@@ -116,7 +130,7 @@ export function Navbar() {
             <button
               key={link.href}
               onClick={() => handleNavClick(link.href)}
-              className="text-left px-4 py-3 rounded-xl text-sm font-medium text-gray-600 hover:text-[#0e81b8] hover:bg-blue-50 transition-colors duration-150 cursor-pointer"
+              className="text-left px-4 py-3 rounded-xl text-sm font-medium text-gray-600 hover:text-brand-500 hover:bg-blue-50 transition-colors duration-150 cursor-pointer"
             >
               {link.label}
             </button>

@@ -28,8 +28,8 @@ export function HowItWorksSection() {
   return (
     <section
       id="como-funciona"
-      className="relative overflow-hidden"
-      style={{ backgroundColor: "#0d4a8a", paddingTop: 100, paddingBottom: 100 }}
+      className="relative overflow-hidden py-16 md:py-24"
+      style={{ backgroundColor: "#0d4a8a" }}
     >
       {/* Background image */}
       <div
@@ -65,7 +65,7 @@ export function HowItWorksSection() {
       <div className="relative z-10 max-w-5xl mx-auto px-6">
 
         {/* Header */}
-        <div className="text-center mb-20">
+        <div className="text-center mb-12 md:mb-20">
           <span
             className="inline-block text-xs font-bold uppercase mb-4 px-3 py-1 rounded-full"
             style={{

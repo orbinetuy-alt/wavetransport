@@ -39,11 +39,9 @@ export function WhyWaveSection() {
   return (
     <section
       id="porquewave"
-      className="relative overflow-hidden"
+      className="relative overflow-hidden py-16 md:py-24"
       style={{
         background: "linear-gradient(160deg, #0a2d52 0%, #0e4f8a 60%, #0e81b8 100%)",
-        paddingTop: 100,
-        paddingBottom: 100,
       }}
     >
       {/* Wave blob — left */}

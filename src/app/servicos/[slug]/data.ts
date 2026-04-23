@@ -44,7 +44,7 @@ export const SERVICES_DATA: ServiceData[] = [
   {
     slug: "transfer-ponto-a-ponto",
     label: "Transfer Ponto a Ponto",
-    image: "/transfer-ponto-a-ponto.jpeg",
+    image: "/transfer-ponto-a-ponto.jpg",
     tagline: "Viagens privadas entre cidades, preço fixo, sem surpresas.",
     description:
       "Transporte privado de longa distância entre qualquer ponto de Portugal. Aeroportos, hotéis, portos de cruzeiro, estações ferroviárias — chegamos onde precisar, com conforto e pontualidade garantidos.",

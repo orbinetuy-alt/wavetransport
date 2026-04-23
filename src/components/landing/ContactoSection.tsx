@@ -60,8 +60,8 @@ export function ContactoSection() {
   return (
     <section
       id="contacto"
-      className="relative overflow-hidden"
-      style={{ backgroundColor: "#f0f7ff", paddingTop: 100, paddingBottom: 100 }}
+      className="relative overflow-hidden py-16 md:py-24"
+      style={{ backgroundColor: "#f0f7ff" }}
     >
       <div className="max-w-6xl mx-auto px-6">
 
@@ -189,7 +189,7 @@ export function ContactoSection() {
 
           {/* Right — form */}
           <div
-            className="rounded-2xl p-8"
+            className="rounded-2xl p-5 md:p-8"
             style={{
               background: "linear-gradient(135deg, #0e81b8 0%, #0a2d52 100%)",
               border: "1px solid rgba(255,255,255,0.15)",

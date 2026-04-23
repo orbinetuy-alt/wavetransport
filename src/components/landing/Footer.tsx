@@ -48,8 +48,8 @@ export function Footer() {
       />
       {/* Main footer content */}
       <div
-        className="max-w-6xl mx-auto px-6"
-        style={{ paddingTop: 64, paddingBottom: 48, position: "relative", zIndex: 2 }}
+        className="max-w-6xl mx-auto px-6 pt-12 pb-10 md:pt-16 md:pb-12"
+        style={{ position: "relative", zIndex: 2 }}
       >
         <div
           style={{
