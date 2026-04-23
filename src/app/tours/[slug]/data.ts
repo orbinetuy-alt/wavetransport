@@ -60,6 +60,74 @@ export const TOURS_DATA: TourData[] = [
       "Motorista local com conhecimento profundo da região",
     ],
   },
+  {
+    slug: "fatima-nazare-obidos",
+    label: "Fátima, Nazaré & Óbidos",
+    image: "/nazare.jpg",
+    tagline: "Fé, oceano e história medieval num só dia.",
+    duration: "10H – 11H",
+    description:
+      "Um dia que combina espiritualidade, natureza selvagem e charme medieval. Do Santuário de Fátima às ondas gigantes de Nazaré, terminando nas muralhas douradas de Óbidos — uma experiência verdadeiramente portuguesa.",
+    includes: [
+      "Santuário de Fátima (tempo livre)",
+      "Nazaré: Sítio, Farol e descida à vila",
+      "Almoço em Nazaré incluído",
+      "Óbidos: Muralhas, Rua Direita e tempo livre",
+      "Opcional: Mosteiro da Batalha",
+      "Motorista dedicado durante todo o percurso",
+    ],
+  },
+  {
+    slug: "sintra-half-day",
+    label: "Sintra Half Day",
+    image: "/sintra-half-day.jpg",
+    tagline: "Os palácios mais icónicos de Sintra em meio dia.",
+    duration: "5H – 6H",
+    description:
+      "A versão essencial de Sintra para quem tem menos tempo mas não quer perder o melhor. Palácio de Queluz, Palácio da Pena e o centro histórico de Sintra — tudo com motorista privado e total comodidade.",
+    includes: [
+      "Palácio de Queluz e jardins",
+      "Palácio da Pena (exterior e jardins)",
+      "Centro Histórico de Sintra (Patrimônio UNESCO)",
+      "Paragens para fotos nos melhores pontos",
+      "Motorista privado durante todo o percurso",
+      "Viatura de alta gama com Wi-Fi",
+    ],
+  },
+  {
+    slug: "aveiro-costa-nova",
+    label: "Aveiro & Costa Nova",
+    image: "/aveiro-costa.jpg",
+    tagline: "A Veneza portuguesa e as casas às riscas da Costa Nova.",
+    duration: "7H – 8H",
+    description:
+      "Aveiro surpreende com os seus canais, barcos Moliceiros coloridos e os famosos Ovos Moles. A Costa Nova encanta com as pitorescas casas às riscas junto ao Atlântico. Um dia diferente, cheio de cor e autenticidade.",
+    includes: [
+      "Centro de Aveiro e canais da Ria",
+      "Passeio de Moliceiro pelos canais",
+      "Tempo livre para Ovos Moles e almoço",
+      "Costa Nova: casas às riscas e paragem para fotos",
+      "Opcional: Praia da Barra e Farol da Barra",
+      "Motorista dedicado durante todo o dia",
+    ],
+  },
+  {
+    slug: "porto-gaia",
+    label: "Porto & Gaia",
+    image: "/porto-gaia.jpg",
+    tagline: "A Cidade Invicta, o Douro e os segredos do Vinho do Porto.",
+    duration: "7H – 8H",
+    description:
+      "Porto é uma das cidades mais bonitas da Europa e merece ser vivida com calma. Da Ribeira histórica às caves de Vinho do Porto em Gaia, da Livraria Lello à vista da Ponte Luís I — um dia inesquecível na capital do norte.",
+    includes: [
+      "Estação de São Bento e azulejos históricos",
+      "Sé do Porto e Torre dos Clérigos",
+      "Livraria Lello (parada exterior ou visita)",
+      "Ribeira do Porto e Ponte Luís I",
+      "Vila Nova de Gaia: cave de Vinho do Porto ou WOW",
+      "Opcional: Jardim do Morro e Teleférico de Gaia",
+    ],
+  },
 ];
 
 export function getTourBySlug(slug: string): TourData | undefined {

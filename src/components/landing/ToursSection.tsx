@@ -47,14 +47,57 @@ const TOURS = [
     duration: "Dia completo",
     description:
       "Mergulhe na autenticidade do Alentejo: aldeias medievais, vinhas infinitas e uma gastronomia que conta a história da região.",
-    highlights: [
-      "Évora",
-      "Monsaraz",
-      "Prova de vinhos",
-      "Almoço típico alentejano",
-    ],
+    highlights: ["Évora", "Monsaraz", "Prova de vinhos", "Almoço típico alentejano"],
     image: "tour-alentejo.jpg",
     accent: "#f0c060",
+    badge: null,
+  },
+  {
+    id: "fatima-nazare-obidos",
+    title: "Fátima, Nazaré & Óbidos",
+    subtitle: "Fé, oceano e história medieval",
+    duration: "10H – 11H",
+    description:
+      "Do Santuário de Fátima às ondas gigantes de Nazaré, terminando nas muralhas douradas de Óbidos. Um dia verdadeiramente português.",
+    highlights: ["Santuário de Fátima", "Nazaré & Farol", "Óbidos medieval", "Opcional: Batalha"],
+    image: "nazare.jpg",
+    accent: "#0e81b8",
+    badge: null,
+  },
+  {
+    id: "sintra-half-day",
+    title: "Sintra Half Day",
+    subtitle: "O essencial de Sintra em meio dia",
+    duration: "5H – 6H",
+    description:
+      "Palácio de Queluz, Palácio da Pena e o centro histórico de Sintra — tudo com motorista privado e em apenas meio dia.",
+    highlights: ["Palácio de Queluz", "Palácio da Pena", "Centro histórico Sintra", "Paragens para fotos"],
+    image: "sintra-half-day.jpg",
+    accent: "#7dd3f0",
+    badge: null,
+  },
+  {
+    id: "aveiro-costa-nova",
+    title: "Aveiro & Costa Nova",
+    subtitle: "A Veneza portuguesa",
+    duration: "7H – 8H",
+    description:
+      "Canais, Moliceiros coloridos, Ovos Moles e as famosas casas às riscas da Costa Nova. Um dia diferente e cheio de cor.",
+    highlights: ["Centro de Aveiro", "Passeio de Moliceiro", "Costa Nova", "Opcional: Farol da Barra"],
+    image: "aveiro-costa.jpg",
+    accent: "#f0c060",
+    badge: null,
+  },
+  {
+    id: "porto-gaia",
+    title: "Porto & Gaia",
+    subtitle: "A Cidade Invicta e o Vinho do Porto",
+    duration: "7H – 8H",
+    description:
+      "Da Ribeira histórica às caves de Gaia, da Livraria Lello à Ponte Luís I. Um dia inesquecível na capital do norte de Portugal.",
+    highlights: ["Ribeira & Ponte Luís I", "Livraria Lello", "Cave Vinho do Porto", "Vila Nova de Gaia"],
+    image: "porto-gaia.jpg",
+    accent: "#0e81b8",
     badge: null,
   },
 ];
